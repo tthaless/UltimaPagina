@@ -70,23 +70,10 @@ O projeto está organizado da seguinte forma:
 
 ### Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina:
-- [Node.js](https://nodejs.org/) (v20.x ou superior)
-- [XAMPP](https://www.apachefriends.org/index.html) (ou outro ambiente com MySQL)
+- [Node.js](https://nodejs.org/)
+- [XAMPP](https://www.apachefriends.org/index.html)
+- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
 - [Git](https://git-scm.com/)
-
-### Passo a Passo
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/tthaless/UltimaPagina](https://github.com/tthaless/UltimaPagina)
-   cd UltimaPagina
-
-2. **Configure o Banco de Dados:**
-
-- Inicie o módulo do MySQL no seu painel de controle do XAMPP.
-- Acesse o phpMyAdmin (ou outro cliente de DB) e crie um novo banco de dados chamado ultima_pagina.
-- Importe o arquivo .sql com a estrutura das tabelas para o banco de dados criado.
-
-...
 
 
 ## 👥 Contribuidores
