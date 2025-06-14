@@ -1,4 +1,4 @@
-const db = require('../dataBase'); // Verifique se o nome do seu arquivo é 'dataBase' ou 'database'
+const db = require('../dataBase'); 
 
 const getAllCategories = (req, res) => {
   const sql = "SELECT * FROM categorias";

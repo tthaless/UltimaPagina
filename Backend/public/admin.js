@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function buscarCategorias() {
     const token = localStorage.getItem('authToken');
-    console.log("Token que será usado:", token);
+    console.log("Token que será usado:", token); //teste
 
     if (!token) {
       // Se não houver token, o usuário não está logado. Volta para o login.
@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderizarCategorias(categorias) {
   listaCategoriasDiv.innerHTML = '';
-  if (categorias.length === 0) { /* ... código continua igual ... */ return; }
+  if (categorias.length === 0) { 
+    
+    listaCategoriasDiv.textContent = 'Nenhuma categoria cadastrada.';
+     return; 
+    }
 
   const ul = document.createElement('ul');
   categorias.forEach(categoria => {
@@ -47,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botaoEditar.onclick = () => prepararEdicao(categoria); // Chama a função de edição
     li.appendChild(botaoEditar);
 
-    // Botão Excluir (já existia)
+    // Botão Excluir 
     const botaoExcluir = document.createElement('button');
     botaoExcluir.textContent = 'Excluir';
     botaoExcluir.style.marginLeft = '10px';

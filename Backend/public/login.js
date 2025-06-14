@@ -25,20 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (response.ok) {
-          // 1. Guarda o "crachá" (token) no armazenamento local do navegador
-          // Assim, podemos usá-lo em outras páginas.
+          // 1. Guarda o token
           localStorage.setItem('authToken', result.token);
 
           // 2. Verifica o tipo de usuário que recebemos do backend
           if (result.usuario.tipo_usuario === 'admin') {
-            // Se for admin, redireciona para a página de admin
+            // Se admin, redireciona para a página de admin
             window.location.href = 'admin.html';
           } else {
-            // Se for qualquer outro tipo (cliente), redireciona para a home
+            // Se for cliente, redireciona para a home padrao
             window.location.href = 'home.html';
           }
         } else {
-        // Se houve um erro no login (ex: senha errada)
+        // Se houve um erro no login 
         feedbackMessage.textContent = 'Erro: ' + (result.message || 'Não foi possível fazer login.');
         feedbackMessage.style.color = 'red';
       }

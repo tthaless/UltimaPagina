@@ -2,10 +2,12 @@ const db = require('../dataBase');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
+// -- Função para registrar usuarios --
 const registerUser = async (req, res) => {
   try {
     const { nome, email, senha, telefone, tipo_usuario } = req.body;
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10); // Garantir possibilidadade de usuarios com senhas iguais
     const senhaHash = await bcrypt.hash(senha, salt);
     const sql = "INSERT INTO usuarios (nome, email, senha, telefone, tipo_usuario) VALUES (?, ?, ?, ?, ?)";
     const values = [nome, email, senhaHash, telefone, tipo_usuario];
@@ -18,6 +20,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+// -- Função para logar um usuário --
 const loginUser = (req, res) => {
   try {
     const { email, senha } = req.body;

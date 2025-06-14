@@ -11,12 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
       nome: document.getElementById('nome').value,
       email: document.getElementById('email').value,
       senha: document.getElementById('senha').value,
-      // Definimos o tipo de usuário como 'cliente' por padrão para este formulário
       tipo_usuario: 'cliente' 
     };
 
     try {
-      // Envia os dados para o nosso backend usando a API Fetch
+      // Envia os dados para o  backend usando a API Fetch
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
