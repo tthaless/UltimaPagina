@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Admin - Última Página</title>
+</head>
+<body>
+
+  <h1>Painel do Administrador</h1>
+  <p>Esta é uma área restrita.</p>
+
+  <hr>
+    <h2>Criar Nova Categoria</h2>
+<form id="formNovaCategoria">
+  <input type="hidden" id="idCategoriaEdicao"><label for="nomeCategoria">Nome:</label>
+  <input type="text" id="nomeCategoria" required>
+  <br><br>
+  <label for="descricaoCategoria">Descrição:</label>
+  <input type="text" id="descricaoCategoria">
+  <br><br>
+  <button type="submit">Criar Categoria</button>
+</form>
+<div id="feedbackNovaCategoria"></div>
+<hr>
+
+  <h2>Gerenciamento de Categorias</h2>
+  <div id="lista-categorias">
+    </div>
+<script src="admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "ultimapagina",
+  "version": "1.0.0",
+  "description": "O sistema **Última Página** é uma aplicação web que resgata o estilo das últimas páginas de jornais antigos, onde eram publicados anúncios de serviços. O objetivo é criar uma plataforma acessível e nostálgica para divulgação de pequenos anúncios, conectando prestadores de serviços e interessados de forma simples e eficaz.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tthaless/UltimaPagina.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tthaless/UltimaPagina/issues"
+  },
+  "homepage": "https://github.com/tthaless/UltimaPagina#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1"
+  }
+}
