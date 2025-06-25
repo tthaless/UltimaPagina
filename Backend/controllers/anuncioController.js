@@ -17,6 +17,11 @@ const createAnuncio = (req, res) => {
   const sql = "INSERT INTO anuncios (titulo, descricao, usuario_id, categoria_id, bairro_id) VALUES (?, ?, ?, ?, ?)";
   const values = [titulo, descricao, usuario_id, categoria_id, bairro_id];
 
+  //verificar tamanho
+  if (descricao && descricao.length > 500) {
+    return res.status(400).send({ message: 'A descrição não pode ter mais de 500 caracteres.' });
+  }
+
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error("Erro ao criar anúncio:", err);
@@ -131,6 +136,11 @@ const updateMeuAnuncio = (req, res) => {
   const idAnuncioParaEditar = req.params.id;
   const idUsuarioLogado = req.user.id;
   const { titulo, descricao, categoria_id, bairro_id } = req.body;
+
+  //verificacao tamanho
+  if (descricao && descricao.length > 500) {
+    return res.status(400).send({ message: 'A descrição não pode ter mais de 500 caracteres.' });
+  }
 
   if (!titulo || !descricao || !categoria_id || !bairro_id) {
     return res.status(400).send({ message: 'Todos os campos são obrigatórios.' });
