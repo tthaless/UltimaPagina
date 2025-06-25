@@ -25,18 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (response.ok) {
+        
           // 1. Guarda o token
           localStorage.setItem('authToken', result.token);
 
-          // 2. Verifica o tipo de usuário que recebemos do backend
-          if (result.usuario.tipo_usuario === 'admin') {
-            // Se admin, redireciona para a página de admin
-            window.location.href = 'admin.html';
-          } else {
-            // Se for cliente, redireciona para a home padrao
-            window.location.href = 'home.html';
+          // 2. Guarda os dados do usuário para usarmos em outras páginas
+          localStorage.setItem('user', JSON.stringify(result.usuario));
+
+           // Redireciona os usuários para a home.html
+           window.location.href = 'home.html';
           }
-        } else {
+         else {
         // Se houve um erro no login 
         feedbackMessage.textContent = 'Erro: ' + (result.message || 'Não foi possível fazer login.');
         feedbackMessage.style.color = 'red';

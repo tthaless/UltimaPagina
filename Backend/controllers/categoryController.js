@@ -38,6 +38,14 @@ const deleteCategory = (req, res) => {
   });
 };
 
+const getPublicCategories = (req, res) => {
+  const sql = "SELECT id, nome FROM categorias"; // Pega apenas id e nome
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).send({ message: "Erro ao buscar categorias." });
+    res.status(200).json(results);
+  });
+};
+
 const updateCategory = (req, res) => {
   const idParaEditar = req.params.id;
   const { nome, descricao } = req.body;
@@ -68,5 +76,6 @@ module.exports = {
   getAllCategories,
   createCategory,
   deleteCategory,
-  updateCategory
+  updateCategory,
+  getPublicCategories
 };

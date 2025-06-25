@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Anúncio - Última Página</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Anúncio - Última Página</title>
+  <link rel="stylesheet" href="style.css">  </head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+  <h1>Criar Novo Anúncio</h1>
+  <p>Preencha os dados abaixo para publicar seu serviço.</p>
+
+  <form id="formCriarAnuncio">
+    <label for="titulo">Título do Anúncio:</label><br>
+    <input type="text" id="titulo" required style="width: 300px;"><br><br>
+
+    <label for="descricao">Descrição do Serviço:</label><br>
+    <textarea id="descricao" required rows="5" style="width: 300px;"></textarea><br><br>
+
+    <label for="categoria">Categoria:</label><br>
+    <select id="categoria" required>
+      <option value="">Carregando...</option>
+    </select><br><br>
+
+    <label for="bairro">Bairro de Atuação:</label><br>
+    <select id="bairro" required>
+      <option value="">Carregando...</option>
+    </select><br><br>
+
+    <button type="submit">Publicar Anúncio</button>
+  </form>
+
+  <div id="feedbackAnuncio"></div>
+  <br>
+  <a href="home.html">Voltar para a Home</a>
+  <script src="nav.js"></script>
+
+  <script src="criar-anuncio.js"></script>
+</body>
+</html>

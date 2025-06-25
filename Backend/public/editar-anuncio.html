@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Anúncio - Última Página</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <h1>Editar Anúncio</h1>
+  <form id="formEditarAnuncio">
+    <input type="hidden" id="anuncioId">
+
+    <label for="titulo">Título do Anúncio:</label><br>
+    <input type="text" id="titulo" required style="width: 300px;"><br><br>
+
+    <label for="descricao">Descrição do Serviço:</label><br>
+    <textarea id="descricao" required rows="5" style="width: 300px;"></textarea><br><br>
+
+    <label for="categoria">Categoria:</label><br>
+    <select id="categoria" required>
+      <option value="">Carregando...</option>
+    </select><br><br>
+
+    <label for="bairro">Bairro de Atuação:</label><br>
+    <select id="bairro" required>
+      <option value="">Carregando...</option>
+    </select><br><br>
+
+    <button type="submit">Salvar Alterações</button>
+  </form>
+
+  <div id="feedbackAnuncio"></div>
+  <br>
+  <a href="meus-anuncios.html">Voltar para "Meus Anúncios"</a>
+
+  <script src="nav.js"></script>
+  <script src="editar-anuncio.js"></script>
+</body>
+</html>

@@ -3,12 +3,15 @@ const express = require('express');
 const db = require('./dataBase');
 const authRoutes = require('./routes/authRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const anuncioRoutes = require('./routes/anuncioRoutes');
+const bairroRoutes = require('./routes/bairroRoutes');
 
 // --- Configurações Iniciais ---
 const app = express();
 const PORT = 3000;
 app.use(express.json());
 app.use(express.static('public'));
+app.use('/api/bairros', bairroRoutes);
 
 // --- Conexão com o Banco ---
 db.connect((err) => {
@@ -20,10 +23,10 @@ db.connect((err) => {
 });
 
 // --- Uso das Rotas ---
-// Todas as rotas que começam com /api (ex: /api/login, /api/register) usarão o authRoutes
 app.use('/api', authRoutes); 
-// Todas as rotas que começam com /api/admin/categorias usarão o categoryRoutes
 app.use('/api/admin/categorias', categoryRoutes);
+app.use('/api/anuncios', anuncioRoutes);
+app.use('/api/bairros', bairroRoutes);
 
 // --- Inicia o Servidor ---
 app.listen(PORT, () => {
