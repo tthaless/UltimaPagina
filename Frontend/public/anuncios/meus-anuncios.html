@@ -1,24 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meus Anúncios - Última Página</title>
-  <link rel="stylesheet" href="/styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Anúncios - Última Página</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="/styles/home-geral.css">
 </head>
 <body>
-  <div id="navbar-placeholder"></div>
+    <header class="main-header with-back-button">
+        <div class="header-left">
+          <button id="backToHomeBtn" class="btn-link-style">
+              <i class="fa-solid fa-chevron-left"></i> voltar
+          </button>
+        </div>
+        <nav class="user-nav">
+            <a href="#" id="username-link"><i class="fa-regular fa-user"></i> <span>usuário</span></a>
+            <button id="logoutButton" class="btn-link-style">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> sair
+            </button>
+        </nav>
+    </header>
 
-  <h1>Meus Anúncios</h1>
-  <p>Aqui você pode gerenciar os anúncios que publicou.</p>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="main-site-title">Última<br>Página</h1>
+            <h2 class="page-subtitle">Meus Anúncios</h2>
+        </div>
 
-  <hr>
+        <section class="admin-toolbar">
+            <div></div> <a href="/anuncios/criar-anuncio.html" class="create-link">
+                <i class="fa-solid fa-plus"></i> criar novo anúncio
+            </a>
+        </section>
 
-  <div id="lista-meus-anuncios">
-    <p>Carregando seus anúncios...</p>
-  </div>
+        <main class="management-list" id="lista-meus-anuncios">
+            <p>carregando seus anúncios...</p>
+        </main>
+    </div>
 
-  <script src="/nav.js"></script>
-  <script src="/anuncios/meus-anuncios.js"></script>
-  </body>
+    <script src="/nav.js"></script>
+    <script src="/anuncios/meus-anuncios.js"></script>
+</body>
 </html>

@@ -13,6 +13,13 @@
 }
 
 @font-face {
+  font-family: 'Amsterdam Serif';
+  src: url('/fonts/AMSTERDAM-SERIF-REGULER.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Bebas Neue';
   src: url('/fonts/BebasNeue-Regular.woff') format('woff');
   font-weight: normal;
@@ -38,7 +45,6 @@ body {
     align-items: center;
     padding: 1.5rem 5%;
 }
-/* Alinha dos dois lados se o botão de voltar estiver presente */
 .main-header.with-back-button {
     justify-content: space-between; 
 }
@@ -51,8 +57,6 @@ body {
     text-decoration: none;
     color: var(--color-text);
     font-size: 1rem;
-    
-    /* Bônus: Alinha o ícone e o texto dentro do link perfeitamente */
     display: inline-flex;
     align-items: center;
 }
@@ -85,7 +89,7 @@ body {
 /* --- Cabeçalho da Página (Título e Subtítulo) --- */
 .page-header {
     text-align: center;
-    margin: 2rem 0 4rem 0; 
+    margin: 2rem 0 3.3rem 0; 
 }
 .main-site-title {
     font-family: var(--font-serif);
@@ -95,6 +99,7 @@ body {
     margin-bottom: 2.8rem;
 }
 
+/* ESTILO ORIGINAL DA HOME (INTOCADO) */
 .page-subtitle {
     font-family: 'Amsterdam Serif', serif;
     font-size: 3rem;
@@ -151,7 +156,7 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 .ad-category, .ad-title, .ad-description, .ad-location { 
-    line-height: 1.2; 
+    line-height: 1.4; 
 }
 .ad-category { 
     font-size: 0.9rem; 
@@ -166,12 +171,12 @@ body {
 }
 .ad-description { 
     font-size: 1rem; 
-    color: var(--color-text-light);
+    color: var(--color-text);
     margin-left: 2.7rem;  
 }
 .ad-location { 
     font-size: 0.9rem; 
-    color: var(--color-text-light); 
+    color: var(--color-text); 
     text-transform: uppercase; 
 }
 .ad-location span { 
@@ -180,12 +185,212 @@ body {
 .ad-favorite { 
     text-align: center; 
     font-size: 1.2rem; 
-    color: var(--color-text-light); 
+    color: var(--color-text); 
     cursor: pointer; 
 }
-
-/* --- Barra de Scroll Customizada --- */
 .classifieds-list::-webkit-scrollbar { width: 8px; }
 .classifieds-list::-webkit-scrollbar-track { background: #f1f1f1; }
 .classifieds-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
 .classifieds-list::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+
+/* ========================================================== */
+/* --- ESTILOS ADICIONAIS P/ PÁGINA GERENCIAR CATEGORIAS --- */
+/* ========================================================== */
+
+/* NOVO ESTILO APENAS PARA O TÍTULO DA PÁGINA DE ADMIN */
+.admin-page-title {
+    font-family: 'Amsterdam Serif', serif;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 1.4rem;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Estilos para o formulário de categoria */
+#formNovaCategoria {
+    max-width: 600px;
+    margin: 3.3rem auto 3.3rem auto;
+    padding: 2rem;
+    padding-bottom: 1.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+}
+.admin-page-categoria {
+    font-family: var(--font-sans);
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+}
+#formNovaCategoria label {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+    color: #555555;
+}
+#formNovaCategoria input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-family: var(--font-sans);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 1.1rem;
+    margin-bottom: 1.4rem;
+    text-align: left;
+    background-color: #f0f0f0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+#formNovaCategoria input[type="text"]:focus {
+    outline: none; 
+    background-color: #ffffff; 
+    border-color: #e0e0e0; 
+}
+#formNovaCategoria button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 18px;
+    text-align: center;
+    width: 70%;
+    border-radius: 26px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+#formNovaCategoria button:hover {
+    background-color: #333;
+}
+
+/* Grid para a lista de categorias */
+#lista-categorias {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+.category-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.category-card .category-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+.category-card .category-actions a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+.category-card .category-actions a:hover {
+    opacity: 0.6;
+}
+.category-card .category-actions i {
+    margin-right: 0.3rem;
+}
+
+/* ========================================================== */
+/* --- NOVOS ESTILOS PARA MENSAGENS DE FEEDBACK --- */
+/* ========================================================== */
+
+/* Estilo base para a caixa da mensagem */
+.feedback-message {
+    text-transform: uppercase;
+    padding-top: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.feedback-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feedback-message.success {
+    color: #30861f;
+}
+
+.feedback-message.error {
+    color: #7a2626;
+}
+
+/* =================================================== */
+/* --- NOVOS ESTILOS P/ PÁGINA MEUS ANÚNCIOS --- */
+/* =================================================== */
+
+.management-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espaço entre os cards */
+}
+
+.management-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.management-card .ad-info h3 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.management-card .ad-info p {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+}
+
+.management-card .ad-actions .btn-edit,
+.management-card .ad-actions .btn-delete {
+    margin-left: 0.75rem;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.management-card .ad-actions .btn-edit {
+    background-color: #007bff; /* Azul */
+}
+.management-card .ad-actions .btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.management-card .ad-actions .btn-delete {
+    background-color: #dc3545; /* Vermelho */
+}
+.management-card .ad-actions .btn-delete:hover {
+    background-color: #c82333;
+}

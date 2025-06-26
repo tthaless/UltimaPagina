@@ -2,7 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaCategoriasDiv = document.getElementById('lista-categorias');
     const formNovaCategoria = document.getElementById('formNovaCategoria');
     const feedbackNovaCategoria = document.getElementById('feedbackNovaCategoria');
-    let categoriasData = []; // Guarda os dados das categorias para fácil acesso
+    let categoriasData = []; 
+
+        const backButton = document.getElementById('backToHomeBtn');
+    if (backButton) {
+        backButton.onclick = () => {
+            window.location.href = '/home-admin.html';
+        };
+    }
 
     async function buscarCategorias() {
         const token = localStorage.getItem('authToken');
@@ -10,16 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/auth/login.html';
             return;
         }
-
         try {
             const response = await fetch('/api/admin/categorias', {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-
             if (response.ok) {
                 const categorias = await response.json();
-                categoriasData = categorias; // Salva os dados para usarmos depois
+                categoriasData = categorias;
                 renderizarCategorias(categoriasData);
             } else {
                 listaCategoriasDiv.innerHTML = '<p style="color: red;">Erro: Você não tem permissão para ver este conteúdo.</p>';
@@ -30,16 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===================================================
-    // MUDANÇA PRINCIPAL: Como a lista é desenhada
+    // FUNÇÃO ATUALIZADA PARA RENDERIZAR OS CARDS
     // ===================================================
     function renderizarCategorias(categorias) {
-        listaCategoriasDiv.innerHTML = ''; // Limpa a lista antiga
+        listaCategoriasDiv.innerHTML = '';
         if (categorias.length === 0) { 
-            listaCategoriasDiv.textContent = 'Nenhuma categoria cadastrada.';
+            listaCategoriasDiv.textContent = 'NENHUMA CATEGORIA CADASTRADA';
             return; 
         }
-
-        // Cria um card para cada categoria usando o novo molde HTML
         categorias.forEach(categoria => {
             const cardHTML = `
                 <div class="category-card">
@@ -54,13 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===================================================
-    // NOVO: Delegação de Eventos para os botões
-    // ===================================================
+    // Delegação de Eventos para os botões de ação
     listaCategoriasDiv.addEventListener('click', (event) => {
         const target = event.target;
-        
-        // Verifica se o clique foi em um botão de editar
         const editButton = target.closest('.edit-btn');
         if (editButton) {
             event.preventDefault();
@@ -70,8 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 prepararEdicao(categoriaParaEditar);
             }
         }
-
-        // Verifica se o clique foi em um botão de excluir
         const deleteButton = target.closest('.delete-btn');
         if (deleteButton) {
             event.preventDefault();
@@ -80,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // SUAS FUNÇÕES DE LÓGICA (permanecem as mesmas, pois já são ótimas)
+    // FUNÇÕES DE LÓGICA
     function prepararEdicao(categoria) {
         document.getElementById('idCategoriaEdicao').value = categoria.id;
         document.getElementById('nomeCategoria').value = categoria.nome;
@@ -124,30 +121,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = id ? `/api/admin/categorias/${id}` : '/api/admin/categorias';
         const method = id ? 'PUT' : 'POST';
 
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ nome, descricao })
-            });
-            const result = await response.json();
-            feedbackNovaCategoria.textContent = result.message;
-            if (response.ok) {
-                feedbackNovaCategoria.style.color = 'green';
-                resetarFormulario();
-                buscarCategorias();
-            } else {
-                feedbackNovaCategoria.style.color = 'red';
-            }
-        } catch (error) {
-            feedbackNovaCategoria.textContent = 'Erro de conexão com o servidor.';
-            feedbackNovaCategoria.style.color = 'red';
+try {
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ nome, descricao })
+        });
+
+        const result = await response.json();
+        const feedbackMessage = document.getElementById('feedbackNovaCategoria'); // Referência ao elemento
+        
+        feedbackMessage.textContent = result.message;
+
+        if (response.ok) {
+            // Aplica as classes de sucesso para a estilização e animação
+            feedbackMessage.className = 'feedback-message success show';
+            resetarFormulario();
+            buscarCategorias(); 
+        } else {
+            // Aplica as classes de erro
+            feedbackMessage.className = 'feedback-message error show';
         }
+    } catch (error) {
+        const feedbackMessage = document.getElementById('feedbackNovaCategoria');
+        feedbackMessage.textContent = 'Erro de conexão com o servidor.';
+        feedbackMessage.className = 'feedback-message error show';
+    }
     });
 
-    // Chama a função inicial para buscar as categorias
     buscarCategorias();
 });
