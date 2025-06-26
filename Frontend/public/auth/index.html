@@ -1,30 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - Última Página</title>
-  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Última Página</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles/cadastro.css">
+</head>
 <body>
+    <div class="container-login">
+        
+        <header class="login-header">
+            <h1 class="logo">Última<br>Página</h1>
+             <p class="date">26 DE JUNHO DE 2025</p>
+        </header>
 
-  <h1>Cadastre-se no Última Página</h1>
+        <hr class="login-hr">
 
-  <form id="cadastroForm">
-    <label for="nome">Nome Completo:</label><br>
-    <input type="text" id="nome" name="nome" required><br><br>
+        <main>
+            <form id="cadastroForm" class="login-form" method="post">
+                <h2 class="form-title">REGISTRAR</h2>
+                
+                <div class="input-group">
+                    <label for="nome">nome completo</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="senha">senha</label>
+                    <input type="password" id="senha" name="senha" required>
+                </div>
+                
+                <button type="submit" class="btn-login">Cadastrar</button>
+            </form>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+            <div id="feedbackMessage"></div>
+        </main>
 
-    <label for="senha">Senha:</label><br>
-    <input type="password" id="senha" name="senha" required><br><br>
+        <footer>
+            <p class="register-link">
+                Já possui conta? <a href="/auth/login.html"><strong>entrar</strong></a>
+            </p>
+        </footer>
 
-    <button type="submit">Cadastrar</button>
-  </form>
+    </div>
 
-  <div id="feedbackMessage"></div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script> 
 
 </body>
 </html>

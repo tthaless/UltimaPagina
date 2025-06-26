@@ -1,0 +1,148 @@
+/* =================================================== */
+/* CSS Exclusivo da Página de Login                    */
+/* =================================================== */
+
+/* --- Variáveis e Fontes para o Login --- */
+:root {
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-special: 'Cormorant Garamond', serif;
+    --color-primary-text: #222222;
+    --color-secondary-text: #555555;
+    --color-input-bg: #f0f0f0;
+    --color-button-bg: #000000;
+    --color-button-text: #ffffff;
+}
+
+@font-face {
+  font-family: 'Amsterdam Serif';
+  src: url('./fonts/AMSTERDAM-SERIF-REGULER.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* --- Reset e Body Específico para o Login --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: #ffffff;
+    color: var(--color-primary-text);
+    
+    /* Centraliza o conteúdo, pois este CSS é só para o login */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* --- Estilos do Formulário de Login --- */
+.container-login { 
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-header .logo {
+    font-family: var(--font-serif);
+    font-size: 5rem;
+    font-weight: 500;
+    line-height: 0.9;
+    margin-bottom: 3rem;
+}
+
+.login-header .date {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: -0.8rem;
+}
+
+.login-hr {
+    border: none;
+    height: 1px;
+    background-color: #000000;
+    margin: 2rem auto;
+}
+
+.login-form .form-title {
+    font-family: 'Amsterdam Serif', serif;
+    font-weight: 500;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 2.5rem;
+}
+
+.login-form .input-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.login-form .input-group label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    color: var(--color-secondary-text);
+}
+
+.login-form .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    background-color: var(--color-input-bg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+}
+
+.login-form .input-group input:focus {
+    outline: none;
+    border-color: #f0f0f0;
+    background-color: #ffffff;
+}
+
+.login-form .forgot-password {
+    display: block;
+    text-align: right;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    color: var(--color-secondary-text);
+    text-decoration: underline;
+}
+
+.login-form .btn-login {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 16px 30px;
+    width: 75%;
+    border-radius: 26px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.login-form .btn-login:hover {
+    background-color: #333;
+}
+
+footer .register-link {
+    margin-top: 2.5rem;
+    font-size: 1.2rem;
+}
+
+footer .register-link a {
+    font-family: var(--font-sans);
+    color: var(--color-primary-text);
+    text-decoration: none;
+}
