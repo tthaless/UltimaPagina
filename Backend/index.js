@@ -5,12 +5,13 @@ const authRoutes = require('./routes/authRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const anuncioRoutes = require('./routes/anuncioRoutes');
 const bairroRoutes = require('./routes/bairroRoutes');
+const path = require('path');
 
 // --- Configurações Iniciais ---
 const app = express();
 const PORT = 3000;
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 app.use('/api/bairros', bairroRoutes);
 
 // --- Conexão com o Banco ---

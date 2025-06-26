@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!token) {
       // Se não houver token, o usuário não está logado. Volta para o login.
-      window.location.href = 'login.html';
+      window.location.href = '/auth/login.html';
       return;
     }
 

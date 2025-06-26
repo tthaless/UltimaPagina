@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let navHTML = '<nav class="navbar">';
 
   if (token && user) {
-    // --- LÓGICA CORRETA DE LINKS ---
-    let links = '<a href="home.html">Home</a>'; 
+    
+    let links = '<a href="/home.html">Home</a>'; 
 
     if (user.tipo_usuario === 'admin') {
-      links += '<a href="gerenciar-categorias.html">Gerenciar Categorias</a>';
-    } else { // Se não é admin, é cliente
-      links += '<a href="meus-anuncios.html">Meus Anúncios</a>';
+      links += '<a href="/admin/gerenciar-categorias.html">Gerenciar Categorias</a>';
+    } else { // cliente
+      links += '<a href="/anuncios/meus-anuncios.html">Meus Anúncios</a>';
     }
-    // --- FIM DA LÓGICA ---
+   
 
     navHTML += `
       <div class="nav-left">
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutBtn.onclick = () => {
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
-      window.location.href = 'login.html';
+      window.location.href = '/auth/login.html'; 
     };
   }
 });

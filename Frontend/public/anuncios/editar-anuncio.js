@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('authToken');
-  if (!token) { window.location.href = 'login.html'; return; }
+  if (!token) { window.location.href = '/auth/login.html'; return; }
 
   // Pega o ID do anúncio da URL
   const params = new URLSearchParams(window.location.search);

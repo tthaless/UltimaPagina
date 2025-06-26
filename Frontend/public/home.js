@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Redireciona para o login se não houver token
   if (!token) {
-    window.location.href = 'login.html';
+    window.location.href = '/auth/login.html';
     return;
   }
 

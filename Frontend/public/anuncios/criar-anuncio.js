@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('authToken');
   // Se não houver token, redireciona para o login
   if (!token) {
-    window.location.href = 'login.html';
+    window.location.href = '/auth/login.html';
     return;
   }
 

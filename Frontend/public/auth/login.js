@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('user', JSON.stringify(result.usuario));
 
            // Redireciona os usuários para a home.html
-           window.location.href = 'home.html';
+           window.location.href = '/home.html';
           }
          else {
         // Se houve um erro no login 
