@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Última Página</title>
+    <title>Painel do Admin - Última Página</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
     <header class="main-header">
         <nav class="user-nav">
-            <a href="#" id="username-link"><i class="fa-regular fa-user"></i> <span>usuário</span></a>
+            <a href="#" id="username-link"><i class="fa-regular fa-user"></i> <span>admin</span></a>
             <button id="logoutButton" class="btn-link-style">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> sair
             </button>
@@ -25,19 +25,20 @@
             <h1 class="main-site-title">Última<br>Página</h1>
             <h2 class="page-subtitle">CLASSIFICADOS</h2>
         </div>
+
         <section class="toolbar">
             <div class="toolbar-left">
                 <a href="#"><i class="fa-solid fa-filter"></i> filtrar</a>
+                <a href="/admin/gerenciar-categorias.html"><i class="fa-solid fa-gear"></i> gerenciar categorias</a>
             </div>
-            
             <div class="toolbar-right">
                 <a href="#"><i class="fa-regular fa-heart"></i> favoritos</a>
                 <a href="/anuncios/meus-anuncios.html"><i class="fa-regular fa-file-lines"></i> meus anúncios</a>
             </div>
         </section>
+        
         <main class="classifieds-list" id="lista-anuncios">
-            <p>Carregando anúncios...</p>
-        </main>
+            </main>
     </div>
     
     <script src="/nav.js"></script>

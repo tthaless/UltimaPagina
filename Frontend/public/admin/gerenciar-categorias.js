@@ -1,145 +1,153 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const listaCategoriasDiv = document.getElementById('lista-categorias');
+    const listaCategoriasDiv = document.getElementById('lista-categorias');
+    const formNovaCategoria = document.getElementById('formNovaCategoria');
+    const feedbackNovaCategoria = document.getElementById('feedbackNovaCategoria');
+    let categoriasData = []; // Guarda os dados das categorias para fácil acesso
 
-  async function buscarCategorias() {
-    const token = localStorage.getItem('authToken');
-    console.log("Token que será usado:", token); //teste
-
-    if (!token) {
-      // Se não houver token, o usuário não está logado. Volta para o login.
-      window.location.href = '/auth/login.html';
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/admin/categorias', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`
+    async function buscarCategorias() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            window.location.href = '/auth/login.html';
+            return;
         }
-      });
 
-      if (response.ok) {
-        const categorias = await response.json();
-        renderizarCategorias(categorias);
-      } else {
-        // Se o token for inválido, expirado, ou o usuário não for admin
-        listaCategoriasDiv.innerHTML = '<p style="color: red;">Erro: Você não tem permissão para ver este conteúdo. <a href="login.html">Faça o login novamente.</a></p>';
-      }
-    } catch (error) {
-      listaCategoriasDiv.innerHTML = '<p style="color: red;">Erro de conexão com o servidor.</p>';
-    }
-  }
+        try {
+            const response = await fetch('/api/admin/categorias', {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
 
-  function renderizarCategorias(categorias) {
-  listaCategoriasDiv.innerHTML = '';
-  if (categorias.length === 0) { 
-    
-    listaCategoriasDiv.textContent = 'Nenhuma categoria cadastrada.';
-     return; 
+            if (response.ok) {
+                const categorias = await response.json();
+                categoriasData = categorias; // Salva os dados para usarmos depois
+                renderizarCategorias(categoriasData);
+            } else {
+                listaCategoriasDiv.innerHTML = '<p style="color: red;">Erro: Você não tem permissão para ver este conteúdo.</p>';
+            }
+        } catch (error) {
+            listaCategoriasDiv.innerHTML = '<p style="color: red;">Erro de conexão com o servidor.</p>';
+        }
     }
 
-  const ul = document.createElement('ul');
-  categorias.forEach(categoria => {
-    const li = document.createElement('li');
-    li.textContent = `ID: ${categoria.id} | Nome: ${categoria.nome}`;
+    // ===================================================
+    // MUDANÇA PRINCIPAL: Como a lista é desenhada
+    // ===================================================
+    function renderizarCategorias(categorias) {
+        listaCategoriasDiv.innerHTML = ''; // Limpa a lista antiga
+        if (categorias.length === 0) { 
+            listaCategoriasDiv.textContent = 'Nenhuma categoria cadastrada.';
+            return; 
+        }
 
-    // Botão Editar
-    const botaoEditar = document.createElement('button');
-    botaoEditar.textContent = 'Editar';
-    botaoEditar.style.marginLeft = '10px';
-    botaoEditar.onclick = () => prepararEdicao(categoria); // Chama a função de edição
-    li.appendChild(botaoEditar);
+        // Cria um card para cada categoria usando o novo molde HTML
+        categorias.forEach(categoria => {
+            const cardHTML = `
+                <div class="category-card">
+                    <span class="category-name">${categoria.nome}</span>
+                    <div class="category-actions">
+                        <a href="#" class="edit-btn" data-id="${categoria.id}"><i class="fa-regular fa-pen-to-square"></i> editar</a>
+                        <a href="#" class="delete-btn" data-id="${categoria.id}"><i class="fa-regular fa-trash-can"></i> excluir</a>
+                    </div>
+                </div>
+            `;
+            listaCategoriasDiv.innerHTML += cardHTML;
+        });
+    }
 
-    // Botão Excluir 
-    const botaoExcluir = document.createElement('button');
-    botaoExcluir.textContent = 'Excluir';
-    botaoExcluir.style.marginLeft = '10px';
-    botaoExcluir.onclick = () => excluirCategoria(categoria.id);
-    li.appendChild(botaoExcluir);
+    // ===================================================
+    // NOVO: Delegação de Eventos para os botões
+    // ===================================================
+    listaCategoriasDiv.addEventListener('click', (event) => {
+        const target = event.target;
+        
+        // Verifica se o clique foi em um botão de editar
+        const editButton = target.closest('.edit-btn');
+        if (editButton) {
+            event.preventDefault();
+            const id = editButton.dataset.id;
+            const categoriaParaEditar = categoriasData.find(cat => cat.id == id);
+            if (categoriaParaEditar) {
+                prepararEdicao(categoriaParaEditar);
+            }
+        }
 
-    ul.appendChild(li);
-  });
-  listaCategoriasDiv.appendChild(ul);
-}
-// Função para preparar o formulário para edição
-function prepararEdicao(categoria) {
-  document.getElementById('idCategoriaEdicao').value = categoria.id; // Guarda o ID no campo escondido
-  document.getElementById('nomeCategoria').value = categoria.nome;
-  document.getElementById('descricaoCategoria').value = categoria.descricao || '';
-  document.querySelector('#formNovaCategoria button').textContent = 'Salvar Alterações'; // Muda o texto do botão
-  window.scrollTo(0, 0); // Rola a página para o topo, para ver o formulário
-}
-
-// Função para limpar o formulário e voltar ao modo "Criar"
-function resetarFormulario() {
-  document.getElementById('idCategoriaEdicao').value = ''; // Limpa o ID
-  formNovaCategoria.reset();
-  document.querySelector('#formNovaCategoria button').textContent = 'Criar Categoria';
-}
-async function excluirCategoria(id) {
-  if (!confirm(`Tem certeza que deseja excluir a categoria com ID ${id}?`)) {
-    return;
-  }
-
-  const token = localStorage.getItem('authToken');
-  try {
-    const response = await fetch(`/api/admin/categorias/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        // Verifica se o clique foi em um botão de excluir
+        const deleteButton = target.closest('.delete-btn');
+        if (deleteButton) {
+            event.preventDefault();
+            const id = deleteButton.dataset.id;
+            excluirCategoria(id);
+        }
     });
 
-    const result = await response.json().catch(() => ({}));
-    alert(result.message || 'Operação concluída.'); 
-
-    if (response.ok) {
-      buscarCategorias(); // Atualiza a lista na tela
+    // SUAS FUNÇÕES DE LÓGICA (permanecem as mesmas, pois já são ótimas)
+    function prepararEdicao(categoria) {
+        document.getElementById('idCategoriaEdicao').value = categoria.id;
+        document.getElementById('nomeCategoria').value = categoria.nome;
+        document.getElementById('descricaoCategoria').value = categoria.descricao || '';
+        document.querySelector('#formNovaCategoria button').textContent = 'Salvar Alterações';
+        window.scrollTo(0, 0);
     }
-  } catch (error) {
-    alert('Erro de conexão ao tentar excluir.');
-  }
-}
-formNovaCategoria.addEventListener('submit', async (event) => {
-  event.preventDefault();
 
-  const id = document.getElementById('idCategoriaEdicao').value;
-  const nome = document.getElementById('nomeCategoria').value;
-  const descricao = document.getElementById('descricaoCategoria').value;
-  const token = localStorage.getItem('authToken');
+    function resetarFormulario() {
+        document.getElementById('idCategoriaEdicao').value = '';
+        formNovaCategoria.reset();
+        document.querySelector('#formNovaCategoria button').textContent = 'Criar Categoria';
+    }
 
-  // Define a URL e o método com base na existência de um ID
-  const url = id ? `/api/admin/categorias/${id}` : '/api/admin/categorias';
-  const method = id ? 'PUT' : 'POST';
+    async function excluirCategoria(id) {
+        if (!confirm(`Tem certeza que deseja excluir a categoria com ID ${id}?`)) {
+            return;
+        }
+        const token = localStorage.getItem('authToken');
+        try {
+            const response = await fetch(`/api/admin/categorias/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const result = await response.json().catch(() => ({}));
+            alert(result.message || 'Operação concluída.'); 
+            if (response.ok) {
+                buscarCategorias();
+            }
+        } catch (error) {
+            alert('Erro de conexão ao tentar excluir.');
+        }
+    }
 
-  try {
-    const response = await fetch(url, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ nome, descricao })
+    formNovaCategoria.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const id = document.getElementById('idCategoriaEdicao').value;
+        const nome = document.getElementById('nomeCategoria').value;
+        const descricao = document.getElementById('descricaoCategoria').value;
+        const token = localStorage.getItem('authToken');
+        const url = id ? `/api/admin/categorias/${id}` : '/api/admin/categorias';
+        const method = id ? 'PUT' : 'POST';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ nome, descricao })
+            });
+            const result = await response.json();
+            feedbackNovaCategoria.textContent = result.message;
+            if (response.ok) {
+                feedbackNovaCategoria.style.color = 'green';
+                resetarFormulario();
+                buscarCategorias();
+            } else {
+                feedbackNovaCategoria.style.color = 'red';
+            }
+        } catch (error) {
+            feedbackNovaCategoria.textContent = 'Erro de conexão com o servidor.';
+            feedbackNovaCategoria.style.color = 'red';
+        }
     });
 
-    const result = await response.json();
-    feedbackNovaCategoria.textContent = result.message;
-
-    if (response.ok) {
-      feedbackNovaCategoria.style.color = 'green';
-      resetarFormulario(); // Limpa o formulário e volta ao modo "Criar"
-      buscarCategorias(); // Atualiza a lista
-    } else {
-      feedbackNovaCategoria.style.color = 'red';
-    }
-  } catch (error) {
-    feedbackNovaCategoria.textContent = 'Erro de conexão com o servidor.';
-    feedbackNovaCategoria.style.color = 'red';
-  }
-});
-
-  // Chama a função para buscar as categorias assim que a página carregar
-  buscarCategorias();
- 
+    // Chama a função inicial para buscar as categorias
+    buscarCategorias();
 });

@@ -1,46 +1,30 @@
+// O nav.js agora só cuida da funcionalidade de logout.
 document.addEventListener('DOMContentLoaded', () => {
-  const navbarPlaceholder = document.getElementById('navbar-placeholder');
-  if (!navbarPlaceholder) return;
-
-  const token = localStorage.getItem('authToken');
-  const userJSON = localStorage.getItem('user');
-  const user = userJSON ? JSON.parse(userJSON) : null;
-
-  let navHTML = '<nav class="navbar">';
-
-  if (token && user) {
     
-    let links = '<a href="/home.html">Home</a>'; 
+    // Procura o botão de logout na página
+    const logoutBtn = document.getElementById('logoutButton');
 
-    if (user.tipo_usuario === 'admin') {
-      links += '<a href="/admin/gerenciar-categorias.html">Gerenciar Categorias</a>';
-    } else { // cliente
-      links += '<a href="/anuncios/meus-anuncios.html">Meus Anúncios</a>';
+    // Se encontrar o botão, adiciona a função de clique
+    if (logoutBtn) {
+        logoutBtn.onclick = () => {
+            console.log("Botão Sair clicado. Fazendo logout...");
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            window.location.href = '/auth/login.html'; 
+        };
     }
-   
 
-    navHTML += `
-      <div class="nav-left">
-        ${links}
-      </div>
-      <div class="nav-right">
-        <span>Olá, ${user.nome}</span>
-        <button id="logoutBtn">Sair</button>
-      </div>
-    `;
-  } else {
-    navHTML += `<div class="nav-left"><span>Última Página</span></div>`;
-  }
-
-  navHTML += '</nav>';
-  navbarPlaceholder.innerHTML = navHTML;
-
-  const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) {
-    logoutBtn.onclick = () => {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
-      window.location.href = '/auth/login.html'; 
-    };
-  }
+    // Você pode adicionar aqui a lógica para atualizar o nome do usuário, se quiser.
+    const userJSON = localStorage.getItem('user');
+    if (userJSON) {
+        const user = JSON.parse(userJSON);
+        const usernameLink = document.getElementById('username-link');
+        if (usernameLink) {
+            // Encontra o <span> dentro do link para mudar só o texto "usuário"
+            const spanElement = usernameLink.querySelector('span');
+            if(spanElement) {
+                spanElement.textContent = user.nome;
+            }
+        }
+    }
 });

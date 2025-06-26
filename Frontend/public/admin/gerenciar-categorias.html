@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Admin - Última Página</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Categorias - Última Página</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/admin-style.css">
 </head>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciar Categorias - Última Página</title>
-  <link rel="stylesheet" href="/styles/style.css">  </head>
 <body>
-  <div id="navbar-placeholder"></div>
+    <div id="navbar-placeholder"></div>
 
-  <h1>Painel do Administrador</h1>
-  <p>Esta é uma área restrita.</p>
+    <div class="admin-container">
+        <h1>Painel do Administrador</h1>
+        <p>Esta é uma área restrita para o gerenciamento de categorias do site.</p>
 
-  <hr>
-    <h2>Criar Nova Categoria</h2>
-<form id="formNovaCategoria">
-  <input type="hidden" id="idCategoriaEdicao"><label for="nomeCategoria">Nome:</label>
-  <input type="text" id="nomeCategoria" required>
-  <br><br>
-  <label for="descricaoCategoria">Descrição:</label>
-  <input type="text" id="descricaoCategoria">
-  <br><br>
-  <button type="submit">Criar Categoria</button>
-</form>
-<div id="feedbackNovaCategoria"></div>
-<hr>
+        <h2>Criar/Editar Categoria</h2>
+        <form id="formNovaCategoria">
+            <input type="hidden" id="idCategoriaEdicao">
+            
+            <label for="nomeCategoria">Nome:</label>
+            <input type="text" id="nomeCategoria" required>
+            
+            <label for="descricaoCategoria">Descrição:</label>
+            <input type="text" id="descricaoCategoria">
+            
+            <button type="submit">Salvar Categoria</button>
+        </form>
+        <div id="feedbackNovaCategoria"></div>
 
-  <h2>Gerenciamento de Categorias</h2>
- <div id="lista-categorias">
-  </div>
+        <h2>Categorias Existentes</h2>
+        <div id="lista-categorias">
+            </div>
+    </div>
 
-  <script src="/nav.js"></script>
-  <script src="/admin/gerenciar-categorias.js"></script>
+    <script src="/nav.js"></script>
+    <script src="/admin/gerenciar-categorias.js"></script>
 </body>
 </html>
