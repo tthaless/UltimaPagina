@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else {
                 // Se houve um erro no login 
-                feedbackMessage.textContent = 'Erro: ' + (result.message || 'Não foi possível fazer login.');
+                feedbackMessage.textContent = 'Erro: ' + (result.message || 'não foi possível fazer login.');
                 feedbackMessage.style.color = 'red';
             }
         } catch (error) {

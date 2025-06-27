@@ -13,12 +13,10 @@
 <body>
     <header class="main-header with-back-button">
         <div class="header-left">
-          <button id="backToHomeBtn" class="btn-link-style">
-              <i class="fa-solid fa-chevron-left"></i> voltar
-          </button>
+            <button id="backToHomeBtn" class="btn-link-style"><i class="fa-solid fa-chevron-left"></i> voltar</button>
         </div>
         <nav class="user-nav">
-            <a href="#" id="username-link"><i class="fa-regular fa-user"></i> <span>usuário</span></a>
+            <a href="#" id="username-link"><i class="fa-solid fa-user"></i> <span>usuário</span></a>
             <button id="logoutButton" class="btn-link-style">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> sair
             </button>
@@ -28,17 +26,19 @@
     <div class="container">
         <div class="page-header">
             <h1 class="main-site-title">Última<br>Página</h1>
-            <h2 class="page-subtitle">Meus Anúncios</h2>
+            <h2 class="management-title">Meus Anúncios</h2>
         </div>
 
-        <section class="admin-toolbar">
-            <div></div> <a href="/anuncios/criar-anuncio.html" class="create-link">
-                <i class="fa-solid fa-plus"></i> criar novo anúncio
-            </a>
+        <section class="toolbar">
+            <div class="toolbar-left">
+            </div>
+            <div class="toolbar-right"> 
+              <a href="/anuncios/criar-anuncio.html"><i class="fa-solid fa-plus"></i> criar novo anúncio</a>
+            </div>
         </section>
-
-        <main class="management-list" id="lista-meus-anuncios">
-            <p>carregando seus anúncios...</p>
+        
+        <main class="classifieds-list" id="lista-meus-anuncios">
+            <p>Carregando seus anúncios...</p>
         </main>
     </div>
 

@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const listaMeusAnunciosDiv = document.getElementById('lista-meus-anuncios');
-    const token = localStorage.getItem('authToken');
+    // Lógica para o botão "Voltar"
     const backButton = document.getElementById('backToHomeBtn');
     if (backButton) {
         backButton.onclick = () => {
-            // Se esta for uma página de admin, use '/home-admin.html'
-            // Se for uma página de cliente, use '/home.html'
-            window.location.href = '/home.html'; 
+            window.location.href = '/home.html';
         };
     }
+
+    const listaMeusAnunciosDiv = document.getElementById('lista-meus-anuncios');
+    const token = localStorage.getItem('authToken');
 
     if (!token) {
         window.location.href = '/auth/login.html';
@@ -20,57 +20,61 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/anuncios/meus', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-
             if (!response.ok) {
-                listaMeusAnunciosDiv.innerHTML = '<p>erro ao buscar seus anúncios</p>';
+                listaMeusAnunciosDiv.innerHTML = '<p>Erro ao buscar seus anúncios.</p>';
                 return;
             }
-
             const anuncios = await response.json();
             renderizarMeusAnuncios(anuncios);
-
         } catch (error) {
-            listaMeusAnunciosDiv.innerHTML = '<p>erro de conexão com o servidor</p>';
+            listaMeusAnunciosDiv.innerHTML = '<p>Erro de conexão com o servidor.</p>';
         }
     }
 
+    // ===================================================
+    // FUNÇÃO CORRIGIDA PARA RENDERIZAR OS CARDS
+    // ===================================================
     function renderizarMeusAnuncios(anuncios) {
         listaMeusAnunciosDiv.innerHTML = '';
-
         if (anuncios.length === 0) {
-            listaMeusAnunciosDiv.innerHTML = '<p>você ainda não publicou nenhum anúncio</p>';
-            return;
+        // Adicionamos a classe 'empty-list-message' ao parágrafo
+        listaMeusAnunciosDiv.innerHTML = '<p class="empty-list-message">você ainda não publicou nenhum anúncio. <a href="criar-anuncio.html">criar anuncio</a></p>';
+        return;
         }
 
         anuncios.forEach(anuncio => {
-            // Este é o novo "molde" do card de gerenciamento
-            const cardHTML = `
-                <div class="management-card">
-                    <div class="ad-info">
-                        <h3>${anuncio.titulo}</h3>
-                        <p>${anuncio.categoria_nome} | ${anuncio.bairro_nome}</p>
-                    </div>
-                    <div class="ad-actions">
-                        <button class="btn-edit" data-id="${anuncio.id}">Editar</button>
-                        <button class="btn-delete" data-id="${anuncio.id}">Excluir</button>
-                    </div>
-                </div>
-            `;
-            listaMeusAnunciosDiv.innerHTML += cardHTML;
-        });
+          const cardHTML = `
+              <div class="ad-card">
+                  <div class="ad-category">${anuncio.categoria_nome || 'N/A'}</div>
+                  <div class="ad-title">${anuncio.titulo}</div>
+                  <div class="ad-description">${anuncio.descricao}</div>
+                  <div class="ad-location">
+                      <span>BAIRRO: ${anuncio.bairro_nome || 'N/A'}</span>
+                  </div>
+                  <div class="ad-actions">
+                      <button class="btn-edit" data-id="${anuncio.id}" title="Editar">
+                          <i class="fa-regular fa-pen-to-square"></i> editar
+                      </button>
+                      <button class="btn-delete" data-id="${anuncio.id}" title="Excluir">
+                          <i class="fa-regular fa-trash-can"></i> excluir
+                      </button>
+                  </div>
+              </div>
+          `;
+          listaMeusAnunciosDiv.innerHTML += cardHTML;
+      });
     }
 
-    // Gerenciador de cliques para os botões de Editar e Excluir
+    // Gerenciador de cliques para os botões
     listaMeusAnunciosDiv.addEventListener('click', (event) => {
-        const target = event.target;
+        const target = event.target.closest('button');
+        if (!target) return;
 
+        const id = target.dataset.id;
         if (target.classList.contains('btn-edit')) {
-            const id = target.dataset.id;
             window.location.href = `editar-anuncio.html?id=${id}`;
         }
-
         if (target.classList.contains('btn-delete')) {
-            const id = target.dataset.id;
             excluirAnuncio(id);
         }
     });
@@ -84,12 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-
             const result = await response.json().catch(() => ({}));
             alert(result.message || 'Operação concluída.');
-
             if (response.ok) {
-                buscarMeusAnuncios(); // Atualiza a lista na tela
+                buscarMeusAnuncios();
             }
         } catch (error) {
             alert('Erro de conexão ao tentar excluir.');

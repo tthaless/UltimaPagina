@@ -1,40 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criar Anúncio - Última Página</title>
-  <link rel="stylesheet" href="/styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Anúncio - Última Página</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="/styles/criar-anuncio.css">
 </head>
 <body>
-  <div id="navbar-placeholder"></div>
+    <header class="main-header with-back-button">
+        <div class="header-left">
+            <a href="/home.html" class="btn-link-style"><i class="fa-solid fa-chevron-left"></i>voltar</a>
+        </div>
+        <nav class="user-nav">
+            <a href="#" id="username-link"><i class="fa-regular fa-user"></i> <span>usuário</span></a>
+            <button id="logoutButton" class="btn-link-style"><i class="fa-solid fa-arrow-right-from-bracket"></i> sair</button>
+        </nav>
+    </header>
 
-  <h1>Criar Novo Anúncio</h1>
-  <p>Preencha os dados abaixo para publicar seu serviço.</p>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="main-site-title">Última<br>Página</h1>
+            <h2 class="page-subtitle">Criar Anúncio</h2>
+        </div>
 
-  <form id="formCriarAnuncio">
-    <label for="titulo">Título do Anúncio:</label><br>
-    <input type="text" id="titulo" required style="width: 300px;"><br><br>
+        <form id="formCriarAnuncio" class="form-container">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="titulo">título</label>
+                    <input type="text" id="titulo" maxlength="40">
+                    <small class="char-counter">MAX. 40 CARACTERES</small>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">categoria</label>
+                    <select id="categoria">
+                        <option value="">Carregando...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">telefone</label>
+                    <input type="text" id="telefone" placeholder="(00) 99999-9999">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bairro">bairro de atuação</label>
+                    <select id="bairro">
+                        <option value="">Carregando...</option>
+                    </select>
+                </div>
 
-    <label for="descricao">Descrição do Serviço:</label><br>
-    <textarea id="descricao" required rows="5" style="width: 300px;" maxlength="500"></textarea><br><br>
+                <div class="form-group">
+                    <label for="descricao">descrição do anúncio</label>
+                    <textarea id="descricao" rows="4" maxlength="150"></textarea>
+                    <small class="char-counter">MAX. 150 CARACTERES</small>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="descricaoCompleta">descrição completa</label>
+                    <textarea id="descricaoCompleta" rows="8" maxlength="700"></textarea>
+                    <small class="char-counter">MAX. 700 CARACTERES</small>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-salvar">Salvar</button>
+                <button type="button" class="btn-cancelar">Cancelar</button>
+            </div>
+            <div id="feedbackAnuncio"></div>
+        </form>
+    </div>
 
-    <label for="categoria">Categoria:</label><br>
-    <select id="categoria" required>
-      <option value="">Carregando...</option>
-    </select><br><br>
-
-    <label for="bairro">Bairro de Atuação:</label><br>
-    <select id="bairro" required>
-      <option value="">Carregando...</option>
-    </select><br><br>
-
-    <button type="submit">Publicar Anúncio</button>
-  </form>
-
-  <div id="feedbackAnuncio"></div>
-  <br>
-  <a href="/home.html">Voltar para a Home</a> <script src="/nav.js"></script>
-  <script src="/anuncios/criar-anuncio.js"></script>
+    <script src="/nav.js"></script>
+    <script src="/anuncios/criar-anuncio.js"></script>
 </body>
 </html>
