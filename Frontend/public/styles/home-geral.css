@@ -185,6 +185,7 @@ body {
     color: var(--color-text); 
     text-transform: uppercase; 
     margin-left: 2rem;
+    margin-right: 2rem;
 }
 .ad-location span { 
     display: block; 
@@ -443,3 +444,4 @@ body {
     font-weight: bold;
     text-decoration: none;
 }
+
