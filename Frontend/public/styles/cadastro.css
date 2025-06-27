@@ -1,6 +1,4 @@
-/* =================================================== */
-/* CSS Exclusivo da Página de CADASTRO                  */
-/* =================================================== */
+/*        CSS Exclusivo da Página de CADASTRO         */
 
 /* --- Variáveis e Fontes para o Login --- */
 :root {
@@ -32,8 +30,6 @@ body {
     font-family: var(--font-sans);
     background-color: #ffffff;
     color: var(--color-primary-text);
-    
-    /* Centraliza o conteúdo, pois este CSS é só para o login */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,17 +99,15 @@ body {
 
 .login-form .input-group input:focus {
     outline: none;
-    border-color: #f0f0f0; /* Note que para esta cor de borda funcionar, o fundo do input precisa ser diferente */
-    background-color: #ffffff;
+    border-color: #f0f0f0;
 }
 
-/* Esta regra não será usada no cadastro, mas não há problema em mantê-la */
 .login-form .forgot-password {
     display: block;
     text-align: right;
     margin-top: -1rem;
     margin-bottom: 2rem;
-    font-size: 0.92rem; /* Corrigido de 0.8rem para 0.92rem para corresponder ao login.css */
+    font-size: 0.92rem;
     color: var(--color-secondary-text);
     text-decoration: underline;
 }
@@ -148,39 +142,33 @@ footer .register-link a {
     text-decoration: none;
 }
 
-/* ========================================================== */
+
 /* --- ESTILOS PARA MENSAGENS DE FEEDBACK NO CADASTRO --- */
-/* ========================================================== */
 
 /* Estilo para o div onde a mensagem de feedback é exibida */
 #feedbackMessage {
-    margin-top: 1.5rem; /* Espaçamento da parte de baixo do formulário */
-    min-height: 20px; /* Garante uma altura mínima para evitar pulos de layout */
+    margin-top: 1.5rem;
+    min-height: 20px; 
 }
 
-/* Estilo base para a caixa da mensagem (agora com as propriedades do criar-anuncio.css) */
 .feedback-message {
     text-transform: uppercase;
     padding-top: 0.8rem;
-    font-size: 1.3rem; /* Tamanho da fonte como em criar-anuncio.css */
+    font-size: 1.3rem;
     font-weight: bold;
     text-align: center;
-    opacity: 0; /* Começa invisível para a animação */
-    transform: translateY(20px); /* Começa um pouco abaixo para a animação */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+    opacity: 0;
 }
 
-/* Estado visível da mensagem */
 .feedback-message.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Cores específicas para sucesso e erro */
 .feedback-message.success {
-    color: #30861f; /* Verde para sucesso */
+    color: #30861f;
 }
 
 .feedback-message.error {
-    color: #7a2626; /* Vermelho para erro */
+    color: #7a2626;
 }

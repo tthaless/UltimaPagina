@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedbackMessage = document.getElementById('feedbackMessage');
 
   form.addEventListener('submit', async (event) => {
-    // Impede o formulário de recarregar a página
     event.preventDefault();
 
     // Pega os dados dos campos do formulário
@@ -13,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
       senha: document.getElementById('senha').value,
       tipo_usuario: 'cliente' 
     };
+
+    feedbackMessage.className = 'feedback-message';
+    feedbackMessage.textContent = '';
 
     try {
       // Envia os dados para o backend usando a API Fetch
@@ -26,24 +28,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await response.json();
 
-      // Limpa classes anteriores e adiciona a base 'feedback-message'
-      feedbackMessage.className = 'feedback-message'; // LINHA ALTERADA/ADICIONADA
-      feedbackMessage.textContent = result.message; // Define o texto da mensagem
+      feedbackMessage.textContent = result.message;
 
       if (response.ok) {
-        feedbackMessage.classList.add('success'); // LINHA ALTERADA/ADICIONADA
-        setTimeout(() => feedbackMessage.classList.add('show'), 10); // LINHA ADICIONADA (para animação)
-        form.reset(); // Limpa o formulário
+        feedbackMessage.classList.add('success'); 
+        setTimeout(() => feedbackMessage.classList.add('show'), 10); 
+        form.reset();
+
+        setTimeout(() => {
+          feedbackMessage.classList.remove('show', 'success'); 
+          feedbackMessage.textContent = '';
+        }, 3000);
+
       } else {
-        feedbackMessage.classList.add('error'); // LINHA ALTERADA/ADICIONADA
-        setTimeout(() => feedbackMessage.classList.add('show'), 10); // LINHA ADICIONADA (para animação)
+        feedbackMessage.classList.add('error'); 
+        setTimeout(() => feedbackMessage.classList.add('show'), 10);
+
+        setTimeout(() => {
+          feedbackMessage.classList.remove('show', 'error');
+          feedbackMessage.textContent = '';
+        }, 5000);
       }
     } catch (error) {
-      // Se houve um erro de rede ou de conexão
-      feedbackMessage.className = 'feedback-message error'; // LINHA ALTERADA/ADICIONADA
+      feedbackMessage.className = 'feedback-message error'; 
       feedbackMessage.textContent = 'Erro de conexão com o servidor.';
-      setTimeout(() => feedbackMessage.classList.add('show'), 10); // LINHA ADICIONADA (para animação)
+      setTimeout(() => feedbackMessage.classList.add('show'), 10); 
       console.error('Erro no fetch:', error);
+
+      setTimeout(() => {
+        feedbackMessage.classList.remove('show', 'error');
+        feedbackMessage.textContent = '';
+      }, 5000);
     }
   });
 });

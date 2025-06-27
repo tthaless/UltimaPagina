@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const registerUser = async (req, res) => {
   try {
     const { nome, email, senha, telefone, tipo_usuario } = req.body;
-    const salt = await bcrypt.genSalt(10); // Garantir possibilidadade de usuarios com senhas iguais
+    const salt = await bcrypt.genSalt(10);
     const senhaHash = await bcrypt.hash(senha, salt);
     const sql = "INSERT INTO usuarios (nome, email, senha, telefone, tipo_usuario) VALUES (?, ?, ?, ?, ?)";
     const values = [nome, email, senhaHash, telefone, tipo_usuario];

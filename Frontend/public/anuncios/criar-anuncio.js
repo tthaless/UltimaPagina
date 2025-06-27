@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Popula o novo seletor de Bairros
+            // Popula Bairros
             if (resBairros.ok) {
                 const bairros = await resBairros.json();
                 const selectBairro = document.getElementById('bairro');
@@ -34,10 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         } catch (error) {
-            // Aplica classes de erro para o feedback de carregamento de dados
-            feedbackAnuncio.className = 'feedback-message error'; // LINHA ALTERADA/ADICIONADA
+            feedbackAnuncio.className = 'feedback-message error';
             feedbackAnuncio.textContent = 'Erro ao carregar dados para o formulário.';
-            setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
+            setTimeout(() => feedbackAnuncio.classList.add('show'), 10);
         }
     }
 
@@ -48,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const dadosAnuncio = {
             titulo: document.getElementById('titulo').value,
             descricao: document.getElementById('descricao').value,
-            descricao_completa: document.getElementById('descricaoCompleta').value, // JÁ TEM DESCRIÇÃO COMPLETA
-            contato_telefone: document.getElementById('telefone').value, // JÁ TEM TELEFONE
+            descricao_completa: document.getElementById('descricaoCompleta').value,
+            contato_telefone: document.getElementById('telefone').value,
             categoria_id: document.getElementById('categoria').value,
             bairro_id: document.getElementById('bairro').value 
         };
@@ -69,31 +68,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
             
             // Limpa classes anteriores e adiciona a base 'feedback-message'
-            feedbackAnuncio.className = 'feedback-message'; // LINHA ALTERADA/ADICIONADA
-            feedbackAnuncio.textContent = result.message; // Define o texto da mensagem
+            feedbackAnuncio.className = 'feedback-message';
+            feedbackAnuncio.textContent = result.message;
 
             if (response.ok) {
-                feedbackAnuncio.classList.add('success'); // LINHA ALTERADA/ADICIONADA
-                setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
+                feedbackAnuncio.classList.add('success');
+                setTimeout(() => feedbackAnuncio.classList.add('show'), 10);
                 setTimeout(() => {
                     window.location.href = '/anuncios/meus-anuncios.html';
                 }, 2000);
             } else {
-                feedbackAnuncio.classList.add('error'); // LINHA ADICIONADA
-                setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
+                feedbackAnuncio.classList.add('error');
+                setTimeout(() => feedbackAnuncio.classList.add('show'), 10);
             }
         } catch (error) {
-            // ERRO DE CONEXÃO: Aplica as classes CSS
-            feedbackAnuncio.className = 'feedback-message error'; // LINHA ALTERADA/ADICIONADA
+            feedbackAnuncio.className = 'feedback-message error';
             feedbackAnuncio.textContent = 'Erro de conexão ao criar anúncio.';
-            setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
+            setTimeout(() => feedbackAnuncio.classList.add('show'), 10);
         }
     });
 
     const cancelButton = document.querySelector('.btn-cancelar');
     if (cancelButton) {
         cancelButton.addEventListener('click', () => {
-            // Apenas redireciona o usuário para a página anterior
             window.location.href = '/anuncios/meus-anuncios.html';
         });
     }
@@ -114,8 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCounter('descricao');
     setupCounter('descricaoCompleta');
 
-    // Inicializa a página
+
     popularDropdowns();
-    // Esta linha não foi modificada, pois o elemento 'current-date' não existe neste HTML
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
 });

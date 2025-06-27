@@ -1,6 +1,6 @@
 const db = require('../dataBase');
 
-exports.findAll = (categoryId, bairroId) => { // Adicionados parâmetros opcionais
+exports.findAll = (categoryId, bairroId) => {
   let sql = `
     SELECT a.id, a.titulo, a.descricao, u.nome AS autor_nome, c.nome AS categoria_nome, b.nome AS bairro_nome, a.data_publicacao
     FROM anuncios AS a
@@ -9,7 +9,7 @@ exports.findAll = (categoryId, bairroId) => { // Adicionados parâmetros opciona
     JOIN bairros AS b ON a.bairro_id = b.id
     WHERE a.status = 'ativo'
   `;
-  const params = []; // Array para os parâmetros da query
+  const params = [];
 
   if (categoryId) {
     sql += ` AND a.categoria_id = ?`;
@@ -22,7 +22,7 @@ exports.findAll = (categoryId, bairroId) => { // Adicionados parâmetros opciona
 
   sql += ` ORDER BY a.data_publicacao DESC`;
 
-  return db.promise().query(sql, params); // Passa os parâmetros para a query
+  return db.promise().query(sql, params);
 };
 
 exports.findMyAds = (userId) => {

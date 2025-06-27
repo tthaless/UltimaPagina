@@ -2,16 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaAnunciosDiv = document.getElementById('lista-anuncios');
     const token = localStorage.getItem('authToken');
 
-    // Elementos do Modal de Filtro
+    // Elementos do Filtro
     const filterModal = document.getElementById('filter-modal');
-    const filterButton = document.querySelector('.toolbar-left a'); // O link "filtrar"
+    const filterButton = document.querySelector('.toolbar-left a');
     const closeFilterModalBtn = document.getElementById('close-filter-modal');
     const applyFiltersBtn = document.getElementById('apply-filters-btn');
     const clearFiltersBtn = document.getElementById('clear-filters-btn');
     const filterCategoriesList = document.getElementById('filter-categories-list');
     const filterBairrosList = document.getElementById('filter-bairros-list');
 
-    // Variáveis para armazenar as opções de filtro e os filtros selecionados
+
     let allCategories = [];
     let allBairros = [];
     let selectedCategoryId = null;
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Função auxiliar para mostrar pop-ups de feedback (definida em nav.js)
+    // Função auxiliar para mostrar pop-ups de feedback
     if (typeof showFeedbackModal !== 'function') {
         window.showFeedbackModal = function(title, message, type = 'success') {
             alert(`${title}: ${message}`);
@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função principal para buscar e renderizar anúncios (agora com filtros)
+    // Função principal para buscar e renderizar anúncios
     async function buscarAnuncios(categoryId = null, bairroId = null) {
         try {
 
-            selectedCategoryId = categoryId; // Armazena o filtro selecionado
-            selectedBairroId = bairroId;     // Armazena o filtro selecionado
+            selectedCategoryId = categoryId;
+            selectedBairroId = bairroId;
 
             let apiUrl = '/api/anuncios';
             const queryParams = new URLSearchParams();
@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 apiUrl += `?${queryParams.toString()}`;
             }
 
-            // 1. Busca todos os anúncios com ou sem filtros
             const anunciosResponse = await fetch(apiUrl, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -80,10 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const anuncios = await anunciosResponse.json();
 
-            // 2. Busca os favoritos do usuário (sempre para poder exibir o coração correto)
             userFavoriteAdIds = await fetchUserFavorites();
 
-            // 3. Renderiza os anúncios, agora com a informação de favoritos
             renderizarAnuncios(anuncios);
 
         } catch (error) {
@@ -148,19 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     showFeedbackModal('Sucesso!', result.message, 'success');
-                    // Atualiza a UI imediatamente após a resposta da API
+
                     const heartIcon = favoriteContainer.querySelector('i');
                     if (result.favorited) {
                         heartIcon.classList.remove('fa-regular');
                         heartIcon.classList.add('fa-solid');
                         favoriteContainer.classList.add('favorited');
-                        // Adiciona o ID à lista de favoritos locais
                         userFavoriteAdIds.push(parseInt(anuncioId));
                     } else {
                         heartIcon.classList.remove('fa-solid');
                         heartIcon.classList.add('fa-regular');
                         favoriteContainer.classList.remove('favorited');
-                        // Remove o ID da lista de favoritos locais
                         userFavoriteAdIds = userFavoriteAdIds.filter(id => id !== parseInt(anuncioId));
                     }
                 } else {
@@ -173,9 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ===================================================
-    // LÓGICA DO MODAL DE FILTRO
-    // ===================================================
+    // LÓGICA DO FILTRO
 
     // Função para popular as opções de categoria e bairro no modal
     async function popularFiltros() {
@@ -188,10 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const categorias = await resCategorias.json();
             const bairros = await resBairros.json();
 
-            allCategories = categorias; // Armazena para uso posterior
-            allBairros = bairros;       // Armazena para uso posterior
+            allCategories = categorias;
+            allBairros = bairros;
 
-            // Popular Categorias
             filterCategoriesList.innerHTML = `
                 <label class="filter-option-item">
                     <input type="radio" name="category-filter" value="" ${selectedCategoryId === null ? 'checked' : ''}>
@@ -207,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             });
 
-            // Popular Bairros
             filterBairrosList.innerHTML = `
                 <label class="filter-option-item">
                     <input type="radio" name="bairro-filter" value="" ${selectedBairroId === null ? 'checked' : ''}>
@@ -229,11 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Event Listeners para o Modal de Filtro
     filterButton.addEventListener('click', (event) => {
-        event.preventDefault(); // Impede o link de navegar
+        event.preventDefault();
         filterModal.classList.add('show');
-        popularFiltros(); // Popula os filtros sempre que o modal é aberto
+        popularFiltros();
     });
 
     closeFilterModalBtn.addEventListener('click', () => {
@@ -247,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCategoryId = selectedCategoryRadio ? (selectedCategoryRadio.value || null) : null;
         const newBairroId = selectedBairroRadio ? (selectedBairroRadio.value || null) : null;
         
-        // Garante que o ID é number se não for null
         const finalCategoryId = newCategoryId ? parseInt(newCategoryId) : null;
         const finalBairroId = newBairroId ? parseInt(newBairroId) : null;
 
@@ -256,24 +245,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     clearFiltersBtn.addEventListener('click', () => {
-        // Desmarca todos os radio buttons e seleciona as opções "Todas" / "Todos"
         document.querySelectorAll('input[name="category-filter"]').forEach(radio => radio.checked = false);
         document.querySelector('input[name="category-filter"][value=""]').checked = true;
 
         document.querySelectorAll('input[name="bairro-filter"]').forEach(radio => radio.checked = false);
         document.querySelector('input[name="bairro-filter"][value=""]').checked = true;
 
-        buscarAnuncios(null, null); // Busca todos os anúncios sem filtros
+        buscarAnuncios(null, null);
         filterModal.classList.remove('show');
     });
 
 
-    // Inicializa a página
     buscarAnuncios();
 
-    // NOVO: Lógica para redirecionar para a página de detalhes ao clicar no card do anúncio
     listaAnunciosDiv.addEventListener('click', (event) => {
-        // Evita que o clique no coração de favorito também redirecione
         if (event.target.closest('.ad-favorite')) {
             return; 
         }

@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.getElementById('backToHomeBtn');
     const token = localStorage.getItem('authToken');
 
-    // Função auxiliar para mostrar pop-ups de feedback (definida em nav.js)
     if (typeof showFeedbackModal !== 'function') {
         window.showFeedbackModal = function(title, message, type = 'success') {
             alert(`${title}: ${message}`);
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Lógica para o botão "voltar"
     if (backButton) {
         backButton.onclick = () => {
             window.location.href = '/home.html';
@@ -23,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function buscarDetalhesAnuncio() {
-        // Pega o ID do anúncio da URL (ex: detalhe-anuncio.html?id=123)
+        // Pega o ID do anúncio da URL
         const params = new URLSearchParams(window.location.search);
         const anuncioId = params.get('id');
 
@@ -94,10 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-        // Opcional: Adicionar estilos para .display-text em criar-anuncio.css
-        // ou home-geral.css para formatar a exibição desses parágrafos.
     }
 
-    // Inicializa a busca pelos detalhes do anúncio
     buscarDetalhesAnuncio();
 });

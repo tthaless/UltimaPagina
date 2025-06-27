@@ -6,13 +6,11 @@ exports.add = (usuario_id, anuncio_id) => {
   return db.promise().query(sql, [usuario_id, anuncio_id]);
 };
 
-// Remove um anúncio dos favoritos de um usuário
 exports.remove = (usuario_id, anuncio_id) => {
   const sql = "DELETE FROM favoritos WHERE usuario_id = ? AND anuncio_id = ?";
   return db.promise().query(sql, [usuario_id, anuncio_id]);
 };
 
-// Verifica se um anúncio específico é favorito de um usuário
 exports.check = (usuario_id, anuncio_id) => {
   const sql = "SELECT COUNT(*) AS isFavorite FROM favoritos WHERE usuario_id = ? AND anuncio_id = ?";
   return db.promise().query(sql, [usuario_id, anuncio_id]);

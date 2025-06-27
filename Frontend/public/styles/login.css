@@ -1,6 +1,4 @@
-/* =================================================== */
-/* CSS Exclusivo da Página de Login                    */
-/* =================================================== */
+/*         CSS Exclusivo da Página de Login         */
 
 /* --- Variáveis e Fontes para o Login --- */
 :root {
@@ -33,7 +31,6 @@ body {
     background-color: #ffffff;
     color: var(--color-primary-text);
     
-    /* Centraliza o conteúdo, pois este CSS é só para o login */
     display: flex;
     justify-content: center;
     align-items: center;

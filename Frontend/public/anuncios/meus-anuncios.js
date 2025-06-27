@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Lógica para o botão "Voltar"
+
     const backButton = document.getElementById('backToHomeBtn');
     if (backButton) {
         backButton.onclick = () => {
@@ -31,13 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ===================================================
-    // FUNÇÃO CORRIGIDA PARA RENDERIZAR OS CARDS
-    // ===================================================
+
+    // FUNÇÃO PARA RENDERIZAR OS CARDS
+
     function renderizarMeusAnuncios(anuncios) {
         listaMeusAnunciosDiv.innerHTML = '';
         if (anuncios.length === 0) {
-        // Adicionamos a classe 'empty-list-message' ao parágrafo
         listaMeusAnunciosDiv.innerHTML = '<p class="empty-list-message">você ainda não publicou nenhum anúncio. <a href="criar-anuncio.html">criar anuncio</a></p>';
         return;
         }
@@ -84,27 +83,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmBtn = document.getElementById('modal-btn-confirm');
         const cancelBtn = document.getElementById('modal-btn-cancel');
 
-        // Mostra o modal
         modal.classList.add('show');
 
-        // Cria uma "promessa" que vai esperar a decisão do usuário
         const userConfirmed = await new Promise(resolve => {
             confirmBtn.onclick = () => {
                 modal.classList.remove('show');
-                resolve(true); // Usuário clicou em "Excluir"
+                resolve(true);
             };
             cancelBtn.onclick = () => {
                 modal.classList.remove('show');
-                resolve(false); // Usuário clicou em "Cancelar"
+                resolve(false);
             };
         });
         
-        // Se o usuário não confirmou, a função para aqui
         if (!userConfirmed) {
             return;
         }
 
-        // Se o usuário confirmou, prossegue com a exclusão
         const token = localStorage.getItem('authToken');
         try {
             const response = await fetch(`/api/anuncios/${id}`, {
@@ -116,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showFeedbackModal(result.message || 'Operação concluída.'); 
 
             if (response.ok) {
-                buscarMeusAnuncios(); // Atualiza a lista na tela
+                buscarMeusAnuncios();
             }
         } catch (error) {
                 alert('Erro de conexão ao tentar excluir.');

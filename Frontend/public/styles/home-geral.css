@@ -1,6 +1,4 @@
-/* =================================================== */
-/* CSS Único e Final para as Páginas Home e Internas   */
-/* =================================================== */
+/*   CSS para as Páginas Home e Internas   */
 
 /* --- Fontes e Variáveis --- */
 :root {
@@ -145,7 +143,7 @@ body {
 }
 .ad-card {
     display: grid;
-    grid-template-columns: 140px 1fr 2fr 1.5fr auto;
+    grid-template-columns: 140px 1.5fr 2.5fr 1.5fr auto;
     align-items: center;
     gap: 1.5rem;
     border: 1px solid var(--color-border);
@@ -174,6 +172,7 @@ body {
     font-size: 1.8rem; 
     font-family:'Bebas Neue', serif;
     text-transform: uppercase;
+    text-align: center;
 }
 .ad-description { 
     font-size: 1rem; 
@@ -182,10 +181,9 @@ body {
     margin-right: 2rem;
     font-size: 1rem;
     color: var(--color-text);
-    margin-left: 0rem;
+    margin-left: 3.3rem;
     margin-right: 1rem;
-    word-wrap: break-word; /* Garante que palavras longas sejam quebradas */
-    word-break: break-all;
+    word-break: normal;
 }
 .ad-location { 
     font-size: 0.9rem; 
@@ -204,11 +202,8 @@ body {
 .classifieds-list::-webkit-scrollbar-thumb:hover { background: #aaa; }
 
 
-/* ========================================================== */
 /* --- ESTILOS ADICIONAIS P/ PÁGINA GERENCIAR CATEGORIAS --- */
-/* ========================================================== */
 
-/* NOVO ESTILO APENAS PARA O TÍTULO DA PÁGINA DE ADMIN */
 .admin-page-title {
     font-family: 'Amsterdam Serif', serif;
     font-size: 2.2rem;
@@ -288,15 +283,14 @@ body {
     background-color: #333;
 }
 
-/* ========================================================== */
-/* --- ESTILO ADICIONAL PARA A HOME DO ADMIN --- */
-/* ========================================================== */
 
-/* Estilos para a área de ações no card (onde fica a lixeira) */
+/* --- ESTILO ADICIONAL PARA A HOME DO ADMIN --- */
+
+/* Estilos para a área de ações no card */
 .ad-card .ad-actions {
     display: flex;
     flex-direction: column;
-    align-items: center; /* ALtere 'flex-start' para 'center' */
+    align-items: center;
     gap: 0.75rem;
 }
 
@@ -349,9 +343,7 @@ body {
     margin-right: 0.3rem;
 }
 
-/* ========================================================== */
 /* --- NOVOS ESTILOS PARA MENSAGENS DE FEEDBACK --- */
-/* ========================================================== */
 
 /* Estilo base para a caixa da mensagem */
 .feedback-message {
@@ -375,9 +367,7 @@ body {
     color: #7a2626;
 }
 
-/* =================================================== */
 /* --- NOVOS ESTILOS P/ PÁGINA MEUS ANÚNCIOS --- */
-/* =================================================== */
 
 .management-list {
     display: flex;
@@ -386,9 +376,9 @@ body {
 }
 
 .management-title {
-    font-family: 'Amsterdam Serif', serif; /* Mantendo a consistência */
+    font-family: 'Amsterdam Serif', serif;
     text-align: center;
-    font-size: 2.2rem; /* <<< Aqui você pode mudar o tamanho à vontade */
+    font-size: 2.2rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -396,16 +386,15 @@ body {
     border-top: 1px solid #000;
     border-bottom: 1px solid #f0f0f0;
 }
-/* =================================================== */
+
 /* --- ESTILOS PARA BOTÕES DE AÇÃO NA PÁG. MEUS ANÚNCIOS --- */
-/* =================================================== */
 
 /* Define que os botões ficarão em coluna e alinhados */
 .ad-card .ad-actions {
     display: flex;
-    flex-direction: column; /* Coloca os botões um em cima do outro */
-    align-items: flex-start; /* Alinha os botões à esquerda na coluna */
-    gap: 0.75rem; /* Espaço vertical entre os botões */
+    flex-direction: column; 
+    align-items: flex-start;
+    gap: 0.75rem;
 }
 
 /* Estilo base para os botões de editar/excluir */
@@ -413,12 +402,12 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.2rem; /* Tamanho do texto e do ícone */
+    font-size: 1.2rem;
     padding: 0.2rem;
     line-height: 1;
     color: var(--color-text);
     font-weight: normal;
-    display: flex; /* Para alinhar o ícone e o texto */
+    display: flex;
     align-items: center;
     transition: color 0.2s ease;
     margin-left: 0rem;
@@ -429,13 +418,12 @@ body {
 
 /* O ícone dentro do botão */
 .ad-card .ad-actions i {
-    margin-right: 0.5rem; /* Espaço entre o ícone e o texto */
-    width: 16px; /* Garante que os ícones tenham a mesma largura */
+    margin-right: 0.5rem; 
+    width: 16px;
 }
 
-/* ========================================================== */
+
 /* --- NOVO ESTILO PARA MENSAGEM DE LISTA VAZIA --- */
-/* ========================================================== */
 
 .empty-list-message {
     text-align: center;
@@ -450,25 +438,23 @@ body {
     text-decoration: none;
 }
 
-/* ========================================================== */
-/* --- ESTILOS PARA O POP-UP DE CONFIRMAÇÃO (MODAL) --- */
-/* ========================================================== */
+
+/* --- ESTILOS PARA O POP-UP DE CONFIRMAÇÃO --- */
 
 /* A camada escura que cobre a tela inteira */
 .modal-overlay {
-    display: none; /* Começa escondido */
-    position: fixed; /* Fica fixo na tela, mesmo com scroll */
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto com 60% de opacidade */
+    background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Garante que fique na frente de tudo */
+    z-index: 1000;
 }
 
-/* A classe que o JavaScript usará para mostrar o modal */
 .modal-overlay.show {
     display: flex;
 }
@@ -514,20 +500,19 @@ body {
 }
 
 .modal-actions .btn-excluir {
-    background-color: #e0e0e0; /* Cinza claro */
+    background-color: #e0e0e0;
     color: var(--color-text);
 }
 
 .modal-actions .btn-cancelar {
-    background-color: var(--color-primary-black, #1a1a1a); /* Preto */
+    background-color: var(--color-primary-black, #1a1a1a);
     color: white;
 }
 
-/* ========================================================== */
-/* --- ESTILOS PARA O POP-UP DE FEEDBACK (VERSÃO SIMPLES) --- */
-/* ========================================================== */
 
-/* A camada escura que cobre a tela inteira (sem alteração) */
+/* --- ESTILOS PARA O POP-UP DE FEEDBACK (VERSÃO SIMPLES) --- */
+
+/* A camada escura que cobre a tela inteira */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -554,16 +539,16 @@ body {
     max-width: 450px;
 }
 
-/* MUDANÇA AQUI: Estilizando o <p> como o novo título */
+/* Estilizando o <p> como o novo título */
 #feedback-modal-message {
-    font-family: var(--font-serif); /* Fonte elegante */
-    font-size: 2.2rem;             /* Tamanho grande de título */
-    line-height: 1.2;              /* Espaçamento entre linhas */
-    color: var(--color-text);      /* Cor do texto principal */
-    margin-bottom: 2rem;           /* Espaço antes do botão OK */
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin-bottom: 2rem;
 }
 
-/* Botões de ação (sem alteração) */
+/* Botões de ação */
 .modal-actions {
     display: flex;
     justify-content: center;
@@ -584,54 +569,52 @@ body {
     color: white;
 }
 
-/* ========================================================== */
+
 /* --- ESTILOS PARA O ÍCONE DE FAVORITOS (CORAÇÃO) --- */
-/* ========================================================== */
 
 .ad-favorite {
     text-align: center;
     font-size: 1.2rem;
-    color: var(--color-text); /* Cor padrão do coração (vazio) */
+    color: var(--color-text);
     cursor: pointer;
     padding: 0 0.5rem;
 }
 
-/* Estilo para o coração preenchido (favoritado) */
+/* Estilo para o coração preenchido */
 .ad-favorite.favorited i {
     color: #000000;
 }
 
-/* Animação simples ao clicar */
+/* Animação ao clicar */
 .ad-favorite i {
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.ad-favorite i.fa-solid { /* Garante que o ícone sólido tenha a cor correta */
-    color: #000000; /* A mesma cor do estado favorited */
+.ad-favorite i.fa-solid { 
+    color: #000000;
 }
 
 .ad-favorite:hover {
     opacity: 0.6;
 }
 
-/* ========================================================== */
-/* --- ESTILOS PARA O MODAL DE FILTRO --- */
-/* ========================================================== */
 
-/* A camada escura que cobre a tela inteira (REUTILIZADA DE OUTROS MODAIS) */
+/* --- ESTILOS PARA O MODAL DE FILTRO --- */
+
+/* A camada escura que cobre a tela inteira */
 .modal-overlay {
-    display: none; /* Começa escondido */
-    position: fixed; /* Fica fixo na tela, mesmo com scroll */
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto com 60% de opacidade */
+    background-color: rgba(0, 0, 0, 0.6); 
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Garante que fique na frente de tudo */
+    z-index: 1000;
 }
-/* A classe que o JavaScript usará para mostrar o modal */
+
 .modal-overlay.show {
     display: flex;
 }
@@ -644,29 +627,28 @@ body {
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     text-align: center;
-    max-width: 800px; /* Ajuste a largura máxima conforme a imagem */
-    width: 90%; /* Ocupa 90% da largura disponível */
-    position: relative; /* Para posicionar o botão de fechar */
+    max-width: 800px;
+    width: 90%;
+    position: relative;
 }
 
 .filter-modal-header {
-    font-family: 'Amsterdam Serif', serif; /* Fonte do título do modal */
-    font-size: 2.5rem;
+    font-family: 'Amsterdam Serif', serif;
     letter-spacing: 1px;
     font-weight: 500;
     text-transform: uppercase;
     padding-bottom: 1.5rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid #e0e0e0; /* Linha divisória como na imagem */
+    border-bottom: 1px solid #e0e0e0; 
     color: var(--color-text);
 }
 
 .filter-options-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Duas colunas para categorias e bairros */
-    gap: 2rem; /* Espaço entre as colunas */
+    gap: 2rem;
     margin-bottom: 2rem;
-    text-align: left; /* Alinha o texto das opções à esquerda */
+    text-align: left;
 }
 
 .filter-column-title {
@@ -676,25 +658,28 @@ body {
     text-transform: uppercase;
     margin-bottom: 1rem;
     color: var(--color-text);
-    border-bottom: 1px solid #f0f0f0; /* Linha abaixo do título da coluna */
+    border-bottom: 1px solid #f0f0f0;
     padding-bottom: 0.5rem;
 }
 
 .filter-options-list {
     display: flex;
     flex-direction: column;
-    gap: 0.7rem; /* Espaço entre as opções */
+    gap: 0.7rem;
+    
+    max-height: 20vh;
+    overflow-y: auto;
+    padding-right: 10px; 
 }
 
 .filter-option-item {
-    display: flex; /* Para alinhar o rádio personalizado e o texto */
+    display: flex;
     align-items: center;
     cursor: pointer;
     font-size: 1rem;
     color: var(--color-text);
 }
 
-/* Esconde o radio button nativo */
 .filter-option-item input[type="radio"] {
     opacity: 0;
     position: absolute;
@@ -702,16 +687,16 @@ body {
     height: 1px;
 }
 
-/* Estilo do radio button personalizado (o círculo) */
+/* Estilo do radio button personalizado */
 .custom-radio {
     width: 16px;
     height: 16px;
-    border: 2px solid var(--color-text-light); /* Borda cinza */
-    border-radius: 50%; /* Faz um círculo */
+    border: 2px solid var(--color-text-light);
+    border-radius: 50%;
     display: inline-block;
     position: relative;
-    margin-right: 0.8rem; /* Espaço entre o círculo e o texto */
-    flex-shrink: 0; /* Impede que o círculo encolha */
+    margin-right: 0.8rem;
+    flex-shrink: 0;
     transition: border-color 0.2s ease;
 }
 
@@ -720,20 +705,19 @@ body {
     content: '';
     width: 8px;
     height: 8px;
-    background-color: var(--color-primary-black); /* Cor do preenchimento */
+    background-color: var(--color-primary-black);
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0); /* Começa invisível */
+    transform: translate(-50%, -50%) scale(0);
     transition: transform 0.2s ease;
 }
 
 /* Quando o radio button está checado, muda a borda e preenche o círculo */
 .filter-option-item input[type="radio"]:checked + .custom-radio {
-    border-color: var(--color-primary-black); /* Mantém a borda preta */
-    background-color: var(--color-primary-black); /* Adiciona o preenchimento total */
-    /* Opcional: Adicione uma transição para a cor de fundo para um efeito suave */
+    border-color: var(--color-primary-black);
+    background-color: var(--color-primary-black);
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -744,8 +728,6 @@ body {
     gap: 2.2rem;
     margin-top: 1rem;
 }
-
-/* Reutiliza estilos de botões que você já tem (.btn-salvar, .btn-cancelar) */
 
 .close-filter-modal-btn {
     position: absolute;
@@ -763,11 +745,9 @@ body {
     color: var(--color-primary-black);
 }
 
-/* =================================================== */
-/* --- ESTILOS DE BOTÕES GLOBAIS (Reutilizados) --- */
-/* =================================================== */
 
-/* Classe base para o estilo comum dos botões de formulário */
+/* --- ESTILOS DE BOTÕES GLOBAIS --- */
+
 .form-actions-base-button {
     font-family: var(--font-sans);
     font-size: 1.5rem;
@@ -781,7 +761,6 @@ body {
     transition: background-color 0.2s ease;
 }
 
-/* Os estilos .btn-salvar e .btn-cancelar para as cores específicas */
 .btn-salvar { 
     background-color: #000000; 
     color: #ffffff; 
@@ -797,9 +776,7 @@ body {
     background-color: #b3b3b3;
 }
 
-/* Modifica os botões do filtro para TER o estilo base (propriedades copiadas manualmente) */
 .filter-actions-bottom button {
-    /* PROPRIEDADES COPIADAS MANUALMENTE DE .form-actions-base-button */
     font-family: var(--font-sans);
     font-size: 1.5rem;
     text-transform: uppercase;
@@ -810,30 +787,26 @@ body {
     border-radius: 22px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
-    /* As cores específicas serão aplicadas automaticamente pelas classes .btn-salvar e .btn-cancelar */
 }
 
-/* ========================================================== */
+
 /* --- ESTILOS PARA MENSAGENS DE FEEDBACK NO CADASTRO --- */
-/* ========================================================== */
 
 /* Estilo para o div onde a mensagem de feedback é exibida */
 #feedbackMessage {
-    margin-top: 1.5rem; /* Espaçamento da parte de baixo do formulário */
-    min-height: 20px; /* Garante uma altura mínima para evitar pulos de layout */
+    margin-top: 1.5rem; 
+    min-height: 20px;
 }
 
-/* Estilo base para a caixa da mensagem */
 .feedback-message {
     text-transform: uppercase;
     padding-top: 0.8rem;
-    font-size: 1.3rem; /* Tamanho da fonte maior */
+    font-size: 1.3rem; 
     font-weight: bold;
     text-align: center;
-    opacity: 0; /* Começa invisível para a animação */
-    transform: translateY(20px); /* Começa um pouco abaixo para a animação */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Estado visível da mensagem */
@@ -842,11 +815,10 @@ body {
     transform: translateY(0);
 }
 
-/* Cores específicas para sucesso e erro */
 .feedback-message.success {
-    color: #30861f; /* Verde para sucesso */
+    color: #30861f;
 }
 
 .feedback-message.error {
-    color: #7a2626; /* Vermelho para erro */
+    color: #7a2626;
 }

@@ -1,6 +1,4 @@
-/* =================================================== */
-/* CSS da Página "Meus Anúncios"                       */
-/* =================================================== */
+/*         CSS da Página "Meus Anúncios"          */
 
 :root {
     --font-serif: 'Playfair Display', serif;
@@ -8,8 +6,6 @@
     --color-text: #222222;
     --color-text-light: #555555;
     --color-border: #e0e0e0;
-    --color-edit: #007bff;
-    --color-delete: #dc3545;
 }
 
 /* --- Reset e Body --- */
@@ -17,7 +13,7 @@
 body { 
     font-family: var(--font-sans); 
     color: var(--color-text); 
-    background-color: #f8f9fa; /* Um fundo levemente cinza */
+    background-color: #f8f9fa;
 }
 
 /* --- Cabeçalho Padrão --- */

@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         anuncios.forEach(anuncio => {
-            // MOLDE ATUALIZADO: Troca o coração pela lixeira com um botão
             const anuncioHTML = `
                 <div class="ad-card" data-ad-id="${anuncio.id}"> <div class="ad-category">${anuncio.categoria_nome || 'SEM CATEGORIA'}</div>
                     <div class="ad-title">${anuncio.titulo}</div>
@@ -50,12 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // NOVA LÓGICA DE CLIQUE PARA EXCLUIR
    listaAnunciosDiv.addEventListener('click', async (event) => {
         const deleteButton = event.target.closest('.btn-delete-ad');
         if (deleteButton) {
             const anuncioId = deleteButton.dataset.id;
-            // CHAMAR DIRETAMENTE A FUNÇÃO QUE JÁ TEM O MODAL CUSTOMIZADO
             await excluirAnuncio(anuncioId); 
         }
     });
@@ -65,10 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmBtn = document.getElementById('modal-btn-confirm');
         const cancelBtn = document.getElementById('modal-btn-cancel');
 
-        // Mostra o modal de confirmação
         modal.classList.add('show');
 
-        // Cria uma "promessa" que vai esperar a decisão do usuário
         const userConfirmed = await new Promise(resolve => {
             confirmBtn.onclick = () => {
                 modal.classList.remove('show');
@@ -80,12 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
         
-        // Se o usuário não confirmou, a função para aqui
         if (!userConfirmed) {
             return;
         }
 
-        // Se o usuário confirmou, prossegue com a exclusão
         const token = localStorage.getItem('authToken');
         try {
             const response = await fetch(`/api/anuncios/${id}`, {
@@ -94,23 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json().catch(() => ({}));
-            // AQUI USAMOS showFeedbackModal para exibir o resultado da operação
             showFeedbackModal(result.message || 'Operação concluída.'); 
 
             if (response.ok) {
-                buscarAnuncios(); // Re-renderiza a lista
+                buscarAnuncios();
             }
         } catch (error) {
-            // Se houver um erro de conexão, também usamos showFeedbackModal
             showFeedbackModal('Erro de conexão ao tentar excluir.');
         }
     }
 
     buscarAnuncios();
 
-    // NOVO: Lógica para redirecionar para a página de detalhes ao clicar no card do anúncio
     listaAnunciosDiv.addEventListener('click', (event) => {
-        // Evita que o clique no botão de excluir também redirecione
         if (event.target.closest('.btn-delete-ad')) {
             return; 
         }

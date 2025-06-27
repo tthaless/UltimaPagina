@@ -20,7 +20,7 @@ exports.createCategory = async (nome, descricao) => {
     if (error.code === 'ER_DUP_ENTRY') {
       throw new Error('Uma categoria com este nome já existe.');
     }
-    throw error; // Lança outros erros
+    throw error;
   }
 };
 

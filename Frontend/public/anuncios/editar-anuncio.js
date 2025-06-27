@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackAnuncio = document.getElementById('feedbackAnuncio');
     const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
 
-    // Pega o ID do anúncio da URL (ex: editar-anuncio.html?id=123)
+    // Pega o ID do anúncio da URL
     const params = new URLSearchParams(window.location.search);
     const anuncioId = params.get('id');
 
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Lógica para o botão "voltar"
     const backButton = document.getElementById('backToMyAdsBtn');
     if (backButton) {
         backButton.onclick = () => { window.location.href = '/anuncios/meus-anuncios.html'; };
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para carregar todos os dados necessários para o formulário
     async function carregarDadosParaEdicao() {
         try {
-            // Busca os dados DO ANÚNCIO, de TODAS AS CATEGORIAS e de TODOS OS BAIRROS ao mesmo tempo
             const [resAnuncio, resCategorias, resBairros] = await Promise.all([
                 fetch(`/api/anuncios/${anuncioId}`, { headers: { 'Authorization': `Bearer ${token}` } }),
                 fetch('/api/admin/categorias/public', { headers: { 'Authorization': `Bearer ${token}` } }),
@@ -37,13 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const categorias = await resCategorias.json();
             const bairros = await resBairros.json();
 
-            // --- Preenche os campos do formulário com os dados do anúncio ---
             document.getElementById('titulo').value = anuncio.titulo;
             document.getElementById('telefone').value = anuncio.contato_telefone || '';
             document.getElementById('descricao').value = anuncio.descricao;
             document.getElementById('descricaoCompleta').value = anuncio.descricao_completa || '';
 
-            // Popula e seleciona a categoria correta
             const selectCategoria = document.getElementById('categoria');
             selectCategoria.innerHTML = '<option value="">Selecione uma categoria</option>';
             categorias.forEach(cat => {
@@ -51,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectCategoria.innerHTML += `<option value="${cat.id}" ${selected}>${cat.nome}</option>`;
             });
 
-            // Popula e seleciona o bairro correto
             const selectBairro = document.getElementById('bairro');
             selectBairro.innerHTML = '<option value="">Selecione um bairro</option>';
             bairros.forEach(bairro => {
@@ -59,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectBairro.innerHTML += `<option value="${bairro.id}" ${selected}>${bairro.nome}</option>`;
             });
             
-            // Dispara manualmente o evento de input para os contadores de caracteres atualizarem
             document.getElementById('titulo').dispatchEvent(new Event('input'));
             document.getElementById('descricao').dispatchEvent(new Event('input'));
             document.getElementById('descricaoCompleta').dispatchEvent(new Event('input'));
@@ -69,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Lógica para ENVIAR o formulário com as atualizações
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -91,37 +84,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
             
-            // Limpa classes anteriores e adiciona a base 'feedback-message'
             feedbackAnuncio.className = 'feedback-message'; 
-            feedbackAnuncio.textContent = result.message; // Define o texto da mensagem
+            feedbackAnuncio.textContent = result.message;
 
             if(response.ok) {
-                feedbackAnuncio.classList.add('success'); // Adiciona a classe de sucesso
-                // Pequeno delay para garantir que a transição funcione
+                feedbackAnuncio.classList.add('success');
                 setTimeout(() => feedbackAnuncio.classList.add('show'), 10); 
-                // Volta para a lista após 2 segundos
                 setTimeout(() => { window.location.href = '/anuncios/meus-anuncios.html'; }, 2000);
             } else {
-                feedbackAnuncio.classList.add('error'); // Adiciona a classe de erro
-                // Pequeno delay para garantir que a transição funcione
+                feedbackAnuncio.classList.add('error');
                 setTimeout(() => feedbackAnuncio.classList.add('show'), 10); 
             }
         } catch (error) {
-            feedbackAnuncio.className = 'feedback-message error'; // Adiciona classes de feedback e erro
+            feedbackAnuncio.className = 'feedback-message error';
             feedbackAnuncio.textContent = 'Erro de conexão ao salvar alterações.';
-            setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // Mostra com delay
+            setTimeout(() => feedbackAnuncio.classList.add('show'), 10);
         }
     });
 
     const cancelButton = document.querySelector('.btn-cancelar');
     if (cancelButton) {
         cancelButton.addEventListener('click', () => {
-            // Apenas redireciona o usuário para a página anterior
+
             window.location.href = '/anuncios/meus-anuncios.html';
         });
     }
     
-    // Contadores de Caracteres (igual ao da página de criar)
+    // Contadores de Caracteres
     function setupCounter(inputId) {
         const input = document.getElementById(inputId);
         const counter = input.nextElementSibling;
@@ -129,14 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (counter && counter.classList.contains('char-counter')) {
             const update = () => counter.textContent = `${input.value.length} / ${maxLength} CARACTERES`;
             input.addEventListener('input', update);
-            update(); // Roda uma vez para mostrar o estado inicial
+            update();
         }
     }
     setupCounter('titulo');
     setupCounter('descricao');
     setupCounter('descricaoCompleta');
 
-    // Inicializa a página
     carregarDadosParaEdicao();
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
 });

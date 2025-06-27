@@ -24,7 +24,6 @@ const createCategory = async (req, res) => {
     const result = await categoryService.createCategory(nome, descricao);
     res.status(201).send(result);
   } catch (error) {
-    // Erros de negócio (ex: nome duplicado) ou de sistema
     res.status(error.message.includes('obrigatório') || error.message.includes('existe') ? 400 : 500).send({ message: error.message });
   }
 };

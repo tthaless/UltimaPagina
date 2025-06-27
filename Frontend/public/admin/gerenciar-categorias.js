@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ===================================================
-    // FUNÇÃO ATUALIZADA PARA RENDERIZAR OS CARDS
-    // ===================================================
+
+    // FUNÇÃO PARA RENDERIZAR OS CARDS
+    
     function renderizarCategorias(categorias) {
         listaCategoriasDiv.innerHTML = '';
         if (categorias.length === 0) { 
@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Delegação de Eventos para os botões de ação
     listaCategoriasDiv.addEventListener('click', (event) => {
         const target = event.target;
         const editButton = target.closest('.edit-btn');
@@ -97,30 +96,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmBtn = document.getElementById('modal-btn-confirm');
         const cancelBtn = document.getElementById('modal-btn-cancel');
 
-        // Mostra o modal
         modal.classList.add('show');
 
-        // Cria uma "promessa" que vai esperar a decisão do usuário
+
         const userConfirmed = await new Promise(resolve => {
             confirmBtn.onclick = () => {
                 modal.classList.remove('show');
-                resolve(true); // Usuário clicou em "Excluir"
+                resolve(true);
             };
             cancelBtn.onclick = () => {
                 modal.classList.remove('show');
-                resolve(false); // Usuário clicou em "Cancelar"
+                resolve(false);
             };
         });
         
-        // Se o usuário não confirmou, a função para aqui
         if (!userConfirmed) {
             return;
         }
 
-        // Se o usuário confirmou, prossegue com a exclusão
         const token = localStorage.getItem('authToken');
         try {
-            // Altere a URL conforme necessário (para categorias ou anúncios)
             const response = await fetch(`/api/admin/categorias/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
@@ -130,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showFeedbackModal(result.message || 'Operação concluída.'); 
 
             if (response.ok) {
-                buscarCategorias(); // Atualiza a lista na tela
+                buscarCategorias();
             }
         } catch (error) {
                 alert('Erro de conexão ao tentar excluir.');
@@ -157,17 +152,15 @@ try {
         });
 
         const result = await response.json();
-        const feedbackMessage = document.getElementById('feedbackNovaCategoria'); // Referência ao elemento
+        const feedbackMessage = document.getElementById('feedbackNovaCategoria');
         
         feedbackMessage.textContent = result.message;
 
         if (response.ok) {
-            // Aplica as classes de sucesso para a estilização e animação
             feedbackMessage.className = 'feedback-message success show';
             resetarFormulario();
             buscarCategorias(); 
         } else {
-            // Aplica as classes de erro
             feedbackMessage.className = 'feedback-message error show';
         }
     } catch (error) {

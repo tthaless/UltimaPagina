@@ -1,6 +1,4 @@
-/* =================================================== */
-/* CSS da Página "Criar Anúncio"                       */
-/* =================================================== */
+/*          CSS da Página "Criar Anúncio"            */
 
 :root {
     --font-serif: 'Playfair Display', serif;
@@ -112,7 +110,7 @@ body {
 /* --- Toolbar --- */
 .toolbar { 
     text-align: center; 
-    padding: 1rem 0; /* Ajuste para não ficar tão grande */
+    padding: 1rem 0;
     margin-bottom: 2rem; 
     border-bottom: 1px solid var(--color-border); 
 }
@@ -120,7 +118,7 @@ body {
 /* --- Formulário --- */
 .form-container { 
     max-width: 850px;
-    margin: 2rem auto; /* Ajuste de margem */
+    margin: 2rem auto;
     padding: 2rem;
     border: 1px solid var(--color-border);
     border-radius: 4px;
@@ -235,41 +233,35 @@ body {
     background-color: #b3b3b3;
 }
 
-/* ========================================================== */
+
 /* --- ESTILOS PARA MENSAGENS DE FEEDBACK NO FORMULÁRIO --- */
-/* ========================================================== */
 
 /* Estilo para o div onde a mensagem de feedback é exibida */
 #feedbackAnuncio {
-    /* Pode ajustar a margem superior para espaçamento dos botões */
     margin-top: 1.5rem; 
 }
 
-/* Estilo base para a caixa da mensagem */
 .feedback-message {
     text-transform: uppercase;
     padding-top: 0.8rem;
-    font-size: 1.3rem; /* Tamanho da fonte maior */
+    font-size: 1.3rem;
     font-weight: bold;
     text-align: center;
-    opacity: 0; /* Começa invisível para a animação */
-    transform: translateY(20px); /* Começa um pouco abaixo para a animação */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-/* Estado visível da mensagem */
 .feedback-message.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Cores específicas para sucesso e erro */
 .feedback-message.success {
-    color: #30861f; /* Verde para sucesso */
+    color: #30861f; 
 }
 
 .feedback-message.error {
-    color: #7a2626; /* Vermelho para erro */
+    color: #7a2626;
 }
 
 /* Estilo para textos de exibição em formulários (campos não editáveis) */
@@ -278,18 +270,18 @@ body {
     padding: 12px;
     font-family: var(--font-sans);
     font-size: 1.1rem;
-    background-color: #f0f0f0; /* Cor de fundo similar aos inputs */
-    border: 1px solid transparent; /* Borda transparente */
+    background-color: #f0f0f0;
+    border: 1px solid transparent;
     border-radius: 4px;
     text-align: left;
     color: var(--color-text);
-    box-sizing: border-box; /* Garante que padding e borda não aumentem o width */
-    min-height: 44px; /* Altura mínima para campos de linha única */
-    display: flex; /* Para alinhar o texto verticalmente se houver pouco conteúdo */
-    align-items: center; /* Alinha o texto ao centro vertical */
+    box-sizing: border-box;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
-/* Estilo para quebra de linha em descrições longas */
+
 .display-text.long-text {
-    white-space: pre-wrap; /* Preserva quebras de linha e quebra o texto */
-    word-wrap: break-word; /* Quebra palavras longas */
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }

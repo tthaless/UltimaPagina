@@ -2,10 +2,10 @@ const anuncioService = require('../services/anuncioService');
 
 const getAllAnuncios = async (req, res) => {
   try {
-    const categoryId = req.query.categoria_id; // Pega o parâmetro da query string
-    const bairroId = req.query.bairro_id;     // Pega o parâmetro da query string
+    const categoryId = req.query.categoria_id;
+    const bairroId = req.query.bairro_id;
 
-    const [anuncios] = await anuncioService.getAllAnuncios(categoryId, bairroId); // Passa os parâmetros
+    const [anuncios] = await anuncioService.getAllAnuncios(categoryId, bairroId);
     res.status(200).json(anuncios);
   } catch (error) {
     console.error('Erro ao buscar anúncios com filtro:', error);
@@ -33,37 +33,34 @@ const getAnuncioById = async (req, res) => {
 
 const createAnuncio = async (req, res) => {
   try {
-    const { titulo, descricao, descricao_completa, contato_telefone, categoria_id, bairro_id } = req.body; // Inclui novos campos
-    const result = await anuncioService.createAnuncio(titulo, descricao, descricao_completa, contato_telefone, req.user.id, categoria_id, bairro_id); // Passa os novos campos
+    const { titulo, descricao, descricao_completa, contato_telefone, categoria_id, bairro_id } = req.body;
+    const result = await anuncioService.createAnuncio(titulo, descricao, descricao_completa, contato_telefone, req.user.id, categoria_id, bairro_id);
     res.status(201).send({ message: "Anúncio criado com sucesso!", anuncioId: result[0].insertId });
   } catch (error) {
-    console.error('Erro ao criar anúncio:', error); // Adiciona log para depuração
+    console.error('Erro ao criar anúncio:', error);
     res.status(error.message.includes('obrigatórios') ? 400 : 500).send({ message: error.message });
   }
 };
 
 const updateMeuAnuncio = async (req, res) => {
   try {
-    // req.body já contém todos os campos do formulário (incluindo os novos)
     await anuncioService.updateMeuAnuncio(req.params.id, req.user.id, req.body); 
     res.status(200).send({ message: 'Anúncio atualizado com sucesso!' });
   } catch (error) {
-    console.error('Erro ao atualizar anúncio:', error); // Adiciona log para depuração
+    console.error('Erro ao atualizar anúncio:', error);
     res.status(error.message.includes('negado') || error.message.includes('encontrado') ? 403 : 400).send({ message: error.message });
   }
 };
 
 const deleteMeuAnuncio = async (req, res) => {
   try {
-    await anuncioService.deleteMeuAnuncio(req.params.id, req.user); // Passa o objeto 'req.user' completo
+    await anuncioService.deleteMeuAnuncio(req.params.id, req.user);
     res.status(200).send({ message: 'Anúncio excluído com sucesso!' });
   } catch (error) {
-    // Mantém a lógica de erro. 'negado' será para usuários não-admin tentando excluir de outros.
     res.status(error.message.includes('negado') || error.message.includes('encontrado') ? 403 : 404).send({ message: error.message });
   }
 };
 
-// Controlador para buscar um anúncio específico pelo ID para visualização pública
 const getPublicAnuncioDetails = async (req, res) => {
   try {
     const anuncio = await anuncioService.getAnuncioPublicDetails(req.params.id);
