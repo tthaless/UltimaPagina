@@ -97,32 +97,6 @@ npm install
 5. Acesse a Aplicação
 - Abra seu navegador e acesse ```http://localhost:3000/auth/login.html``` para começar.
 
-## 🔀 Endpoints da API
-
-Abaixo estão as principais rotas da API desenvolvidas:
-
-- Autenticação
-    - ```POST /api/register```: Registra um novo usuário.
-    - ```POST /api/login```: Autentica um usuário e retorna um token JWT.
-
-- Anúncios
-    - ```GET /api/anuncios```: Retorna todos os anúncios.
-    - ```GET /api/anuncios/meus```: Retorna os anúncios do usuário logado.
-    - ```POST /api/anuncios```: Cria um novo anúncio.
-    - ```PUT /api/anuncios/:id```: Atualiza um anúncio do próprio usuário.
-    - ```DELETE /api/anuncios/:id```: Deleta um anúncio do próprio usuário.
-    - ```DELETE /api/anuncios/admin/:id```: (Admin) Deleta qualquer anúncio.
-
-- Categorias
-    - ```GET /api/admin/categorias```: (Admin) Retorna todas as categorias para gerenciamento.
-    - ```GET /api/admin/categorias/public```: Retorna todas as categorias para uso público (ex: em formulários).
-    - ```POST /api/admin/categorias```: (Admin) Cria uma nova categoria.
-    - ```PUT /api/admin/categorias/:id```: (Admin) Atualiza uma categoria.
-    - ```DELETE /api/admin/categorias/:id```: (Admin) Deleta uma categoria.
-
-- Bairros
-    - ```GET /api/bairros```: Retorna todos os bairros.
-
 ## 👥 Contribuidores
 
 [Arienne Alves Navarro](https://github.com/ariennenavarro)  
