@@ -48,16 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const dadosAnuncio = {
             titulo: document.getElementById('titulo').value,
             descricao: document.getElementById('descricao').value,
-            descricao_completa: document.getElementById('descricaoCompleta').value,
-            contato_telefone: document.getElementById('telefone').value,
+            descricao_completa: document.getElementById('descricaoCompleta').value, // JÁ TEM DESCRIÇÃO COMPLETA
+            contato_telefone: document.getElementById('telefone').value, // JÁ TEM TELEFONE
             categoria_id: document.getElementById('categoria').value,
-            bairro_id: document.getElementById('bairro').value // Pega o valor do select simples
+            bairro_id: document.getElementById('bairro').value 
         };
 
-        // VALIDAÇÃO INICIAL: Aplica as classes CSS
         if (!dadosAnuncio.titulo || !dadosAnuncio.categoria_id || !dadosAnuncio.bairro_id) {
             feedbackAnuncio.textContent = 'Título, Categoria e Bairro são obrigatórios.';
-            feedbackAnuncio.className = 'feedback-message error show'; // LINHA ALTERADA
+            feedbackAnuncio.className = 'feedback-message error show';
             return;
         }
 

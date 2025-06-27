@@ -10,6 +10,7 @@
     --color-text: #222222;
     --color-text-light: #555555;
     --color-border: #e0e0e0;
+    --color-primary-black: #1a1a1a;
 }
 
 @font-face {
@@ -196,14 +197,7 @@ body {
 .ad-location span { 
     display: block; 
 }
-.ad-favorite { 
-    text-align: center; 
-    font-size: 1.2rem; 
-    color: var(--color-text); 
-    cursor: pointer; 
-    margin-left: -2.5rem;
 
-}
 .classifieds-list::-webkit-scrollbar { width: 8px; }
 .classifieds-list::-webkit-scrollbar-track { background: #f1f1f1; }
 .classifieds-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
@@ -588,4 +582,271 @@ body {
 .modal-actions .btn-ok {
     background-color: var(--color-primary-black, #1a1a1a);
     color: white;
+}
+
+/* ========================================================== */
+/* --- ESTILOS PARA O ÍCONE DE FAVORITOS (CORAÇÃO) --- */
+/* ========================================================== */
+
+.ad-favorite {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-text); /* Cor padrão do coração (vazio) */
+    cursor: pointer;
+    padding: 0 0.5rem;
+}
+
+/* Estilo para o coração preenchido (favoritado) */
+.ad-favorite.favorited i {
+    color: #000000;
+}
+
+/* Animação simples ao clicar */
+.ad-favorite i {
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.ad-favorite i.fa-solid { /* Garante que o ícone sólido tenha a cor correta */
+    color: #000000; /* A mesma cor do estado favorited */
+}
+
+.ad-favorite:hover {
+    opacity: 0.6;
+}
+
+/* ========================================================== */
+/* --- ESTILOS PARA O MODAL DE FILTRO --- */
+/* ========================================================== */
+
+/* A camada escura que cobre a tela inteira (REUTILIZADA DE OUTROS MODAIS) */
+.modal-overlay {
+    display: none; /* Começa escondido */
+    position: fixed; /* Fica fixo na tela, mesmo com scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto com 60% de opacidade */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fique na frente de tudo */
+}
+/* A classe que o JavaScript usará para mostrar o modal */
+.modal-overlay.show {
+    display: flex;
+}
+
+
+.filter-modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 800px; /* Ajuste a largura máxima conforme a imagem */
+    width: 90%; /* Ocupa 90% da largura disponível */
+    position: relative; /* Para posicionar o botão de fechar */
+}
+
+.filter-modal-header {
+    font-family: 'Amsterdam Serif', serif; /* Fonte do título do modal */
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e0e0e0; /* Linha divisória como na imagem */
+    color: var(--color-text);
+}
+
+.filter-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas para categorias e bairros */
+    gap: 2rem; /* Espaço entre as colunas */
+    margin-bottom: 2rem;
+    text-align: left; /* Alinha o texto das opções à esquerda */
+}
+
+.filter-column-title {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    border-bottom: 1px solid #f0f0f0; /* Linha abaixo do título da coluna */
+    padding-bottom: 0.5rem;
+}
+
+.filter-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem; /* Espaço entre as opções */
+}
+
+.filter-option-item {
+    display: flex; /* Para alinhar o rádio personalizado e o texto */
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-text);
+}
+
+/* Esconde o radio button nativo */
+.filter-option-item input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+}
+
+/* Estilo do radio button personalizado (o círculo) */
+.custom-radio {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-text-light); /* Borda cinza */
+    border-radius: 50%; /* Faz um círculo */
+    display: inline-block;
+    position: relative;
+    margin-right: 0.8rem; /* Espaço entre o círculo e o texto */
+    flex-shrink: 0; /* Impede que o círculo encolha */
+    transition: border-color 0.2s ease;
+}
+
+/* Estilo do "preenchimento" do radio button personalizado */
+.custom-radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-primary-black); /* Cor do preenchimento */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Começa invisível */
+    transition: transform 0.2s ease;
+}
+
+/* Quando o radio button está checado, muda a borda e preenche o círculo */
+.filter-option-item input[type="radio"]:checked + .custom-radio {
+    border-color: var(--color-primary-black); /* Mantém a borda preta */
+    background-color: var(--color-primary-black); /* Adiciona o preenchimento total */
+    /* Opcional: Adicione uma transição para a cor de fundo para um efeito suave */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Estilos para os botões de ação na parte inferior do modal */
+.filter-actions-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 2.2rem;
+    margin-top: 1rem;
+}
+
+/* Reutiliza estilos de botões que você já tem (.btn-salvar, .btn-cancelar) */
+
+.close-filter-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-filter-modal-btn:hover {
+    color: var(--color-primary-black);
+}
+
+/* =================================================== */
+/* --- ESTILOS DE BOTÕES GLOBAIS (Reutilizados) --- */
+/* =================================================== */
+
+/* Classe base para o estilo comum dos botões de formulário */
+.form-actions-base-button {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 15px;
+    width: 50%;
+    border-radius: 26px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Os estilos .btn-salvar e .btn-cancelar para as cores específicas */
+.btn-salvar { 
+    background-color: #000000; 
+    color: #ffffff; 
+}
+.btn-salvar:hover {
+    background-color: #333;
+}
+.btn-cancelar { 
+    background-color: #ccc; 
+    color: var(--color-text); 
+}
+.btn-cancelar:hover {
+    background-color: #b3b3b3;
+}
+
+/* Modifica os botões do filtro para TER o estilo base (propriedades copiadas manualmente) */
+.filter-actions-bottom button {
+    /* PROPRIEDADES COPIADAS MANUALMENTE DE .form-actions-base-button */
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 15px;
+    width: 50%; 
+    border-radius: 22px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    /* As cores específicas serão aplicadas automaticamente pelas classes .btn-salvar e .btn-cancelar */
+}
+
+/* ========================================================== */
+/* --- ESTILOS PARA MENSAGENS DE FEEDBACK NO CADASTRO --- */
+/* ========================================================== */
+
+/* Estilo para o div onde a mensagem de feedback é exibida */
+#feedbackMessage {
+    margin-top: 1.5rem; /* Espaçamento da parte de baixo do formulário */
+    min-height: 20px; /* Garante uma altura mínima para evitar pulos de layout */
+}
+
+/* Estilo base para a caixa da mensagem */
+.feedback-message {
+    text-transform: uppercase;
+    padding-top: 0.8rem;
+    font-size: 1.3rem; /* Tamanho da fonte maior */
+    font-weight: bold;
+    text-align: center;
+    opacity: 0; /* Começa invisível para a animação */
+    transform: translateY(20px); /* Começa um pouco abaixo para a animação */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+}
+
+/* Estado visível da mensagem */
+.feedback-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Cores específicas para sucesso e erro */
+.feedback-message.success {
+    color: #30861f; /* Verde para sucesso */
+}
+
+.feedback-message.error {
+    color: #7a2626; /* Vermelho para erro */
 }

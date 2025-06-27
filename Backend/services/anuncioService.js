@@ -1,7 +1,7 @@
 const anuncioPersistence = require('../persistence/anuncioPersistence');
 
-exports.getAllAnuncios = () => {
-  return anuncioPersistence.findAll();
+exports.getAllAnuncios = (categoryId, bairroId) => { // Adicionados parâmetros
+  return anuncioPersistence.findAll(categoryId, bairroId); // Repassa para a persistência
 };
 
 exports.getMeusAnuncios = (userId) => {
@@ -21,22 +21,24 @@ exports.getAnuncioById = async (id, userId) => {
   return anuncio;
 };
 
-exports.createAnuncio = (titulo, descricao, usuario_id, categoria_id, bairro_id) => {
-  if (!titulo || !descricao || !categoria_id || !bairro_id) {
-    throw new Error('Todos os campos são obrigatórios.');
+exports.createAnuncio = (titulo, descricao, descricao_completa, contato_telefone, usuario_id, categoria_id, bairro_id) => {
+  if (!titulo || !descricao || !categoria_id || !bairro_id) { // Validação de campos obrigatórios
+    throw new Error('Os campos Título, Descrição, Categoria e Bairro são obrigatórios.'); // Mensagem mais específica
   }
-  return anuncioPersistence.create(titulo, descricao, usuario_id, categoria_id, bairro_id);
+  // Passa os novos campos para a camada de persistência
+  return anuncioPersistence.create(titulo, descricao, descricao_completa, contato_telefone, usuario_id, categoria_id, bairro_id);
 };
 
 exports.updateMeuAnuncio = async (idAnuncio, userId, dadosAnuncio) => {
   const anuncio = await exports.getAnuncioById(idAnuncio, userId); // Reutiliza a função que já tem a checagem de propriedade
 
-  const { titulo, descricao, categoria_id, bairro_id } = dadosAnuncio;
+  const { titulo, descricao, descricao_completa, contato_telefone, categoria_id, bairro_id } = dadosAnuncio; // Inclui novos campos
   if (!titulo || !descricao || !categoria_id || !bairro_id) {
-    throw new Error('Todos os campos são obrigatórios.');
+    throw new Error('Os campos Título, Descrição, Categoria e Bairro são obrigatórios.'); // Mensagem mais específica
   }
 
-  return anuncioPersistence.update(idAnuncio, titulo, descricao, categoria_id, bairro_id);
+  // Passa os novos campos para a camada de persistência
+  return anuncioPersistence.update(idAnuncio, titulo, descricao, descricao_completa, contato_telefone, categoria_id, bairro_id);
 };
 
 exports.deleteMeuAnuncio = async (idAnuncio, user) => { // Agora recebe 'user' em vez de 'userId'
@@ -53,4 +55,13 @@ exports.deleteMeuAnuncio = async (idAnuncio, user) => { // Agora recebe 'user' e
   // A função getAnuncioById já verifica se o anúncio pertence ao userId
   const anuncio = await exports.getAnuncioById(idAnuncio, user.id); 
   return anuncioPersistence.remove(idAnuncio);
+};
+
+// Função para buscar detalhes de um anúncio para visualização pública (sem checagem de propriedade)
+exports.getAnuncioPublicDetails = async (id) => {
+  const [anuncios] = await anuncioPersistence.findById(id);
+  if (anuncios.length === 0) {
+    throw new Error('Anúncio não encontrado.');
+  }
+  return anuncios[0]; // Retorna o primeiro (e único) resultado
 };

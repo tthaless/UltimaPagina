@@ -20,4 +20,7 @@ router.get('/:id', authenticateToken, anuncioController.getAnuncioById);
 // Rota para o usuário editar um de seus próprios anúncios
 router.put('/:id', authenticateToken, anuncioController.updateMeuAnuncio);
 
+// Rota para qualquer usuário logado buscar um anúncio específico pelo ID para visualização
+router.get('/public/:id', authenticateToken, anuncioController.getPublicAnuncioDetails);
+
 module.exports = router;

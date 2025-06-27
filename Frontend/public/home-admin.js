@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         anuncios.forEach(anuncio => {
             // MOLDE ATUALIZADO: Troca o coração pela lixeira com um botão
             const anuncioHTML = `
-                <div class="ad-card">
-                    <div class="ad-category">${anuncio.categoria_nome || 'SEM CATEGORIA'}</div>
+                <div class="ad-card" data-ad-id="${anuncio.id}"> <div class="ad-category">${anuncio.categoria_nome || 'SEM CATEGORIA'}</div>
                     <div class="ad-title">${anuncio.titulo}</div>
                     <div class="ad-description">${anuncio.descricao}</div>
                     <div class="ad-location">
@@ -108,4 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     buscarAnuncios();
+
+    // NOVO: Lógica para redirecionar para a página de detalhes ao clicar no card do anúncio
+    listaAnunciosDiv.addEventListener('click', (event) => {
+        // Evita que o clique no botão de excluir também redirecione
+        if (event.target.closest('.btn-delete-ad')) {
+            return; 
+        }
+
+        const adCard = event.target.closest('.ad-card');
+        if (adCard) {
+            const anuncioId = adCard.dataset.adId;
+            if (anuncioId) {
+                window.location.href = `/anuncios/detalhe-anuncio.html?id=${anuncioId}`;
+            }
+        }
+    });
 });

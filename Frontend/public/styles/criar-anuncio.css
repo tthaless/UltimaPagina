@@ -271,3 +271,25 @@ body {
 .feedback-message.error {
     color: #7a2626; /* Vermelho para erro */
 }
+
+/* Estilo para textos de exibição em formulários (campos não editáveis) */
+.display-text {
+    width: 100%;
+    padding: 12px;
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    background-color: #f0f0f0; /* Cor de fundo similar aos inputs */
+    border: 1px solid transparent; /* Borda transparente */
+    border-radius: 4px;
+    text-align: left;
+    color: var(--color-text);
+    box-sizing: border-box; /* Garante que padding e borda não aumentem o width */
+    min-height: 44px; /* Altura mínima para campos de linha única */
+    display: flex; /* Para alinhar o texto verticalmente se houver pouco conteúdo */
+    align-items: center; /* Alinha o texto ao centro vertical */
+}
+/* Estilo para quebra de linha em descrições longas */
+.display-text.long-text {
+    white-space: pre-wrap; /* Preserva quebras de linha e quebra o texto */
+    word-wrap: break-word; /* Quebra palavras longas */
+}

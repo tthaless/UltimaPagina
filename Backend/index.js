@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const anuncioRoutes = require('./routes/anuncioRoutes');
 const bairroRoutes = require('./routes/bairroRoutes');
+const favoritoRoutes = require('./routes/favoritoRoutes');
 const path = require('path');
 
 // --- Configurações Iniciais ---
@@ -28,6 +29,7 @@ app.use('/api', authRoutes);
 app.use('/api/admin/categorias', categoryRoutes);
 app.use('/api/anuncios', anuncioRoutes);
 app.use('/api/bairros', bairroRoutes);
+app.use('/api', favoritoRoutes);
 
 // --- Inicia o Servidor ---
 app.listen(PORT, () => {

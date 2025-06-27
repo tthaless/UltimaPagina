@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Anúncios - Última Página</title>
+    <title>Meus Favoritos - Última Página</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
@@ -26,42 +26,41 @@
     <div class="container">
         <div class="page-header">
             <h1 class="main-site-title">Última<br>Página</h1>
-            <h2 class="management-title">Meus Anúncios</h2>
+            <h2 class="management-title">Meus Favoritos</h2>
         </div>
 
         <section class="toolbar">
             <div class="toolbar-left">
-            </div>
+                </div>
             <div class="toolbar-right"> 
-              <a href="/anuncios/criar-anuncio.html"><i class="fa-solid fa-plus"></i> criar novo anúncio</a>
-            </div>
+                </div>
         </section>
         
-        <main class="classifieds-list" id="lista-meus-anuncios">
+        <main class="classifieds-list" id="lista-favoritos">
         </main>
-    </div>
-
-    <div id="confirm-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Você tem certeza que deseja excluir?</h2>
-            <p>Essa ação não poderá ser desfeita.</p>
-            <div class="modal-actions">
-                <button id="modal-btn-confirm" class="btn-excluir">Excluir</button>
-                <button id="modal-btn-cancel" class="btn-cancelar">Cancelar</button>
-            </div>
-        </div>
     </div>
 
     <div id="feedback-modal" class="modal-overlay">
         <div class="modal-content">
-            <p id="feedback-modal-message">Anúncio excluído com sucesso!</p>
+            <h2 id="feedback-modal-title"></h2>
+            <p id="feedback-modal-message"></p>
             <div class="modal-actions">
                 <button id="feedback-modal-ok-btn" class="btn-ok">OK</button>
             </div>
         </div>
     </div>
 
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Você tem certeza que deseja remover dos favoritos?</h2>
+            <p>Essa ação pode ser desfeita.</p>
+            <div class="modal-actions">
+                <button id="modal-btn-confirm" class="btn-excluir">Confirmar</button>
+                <button id="modal-btn-cancel" class="btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="/nav.js"></script>
-    <script src="/anuncios/meus-anuncios.js"></script>
-</body>
+    <script src="/anuncios/favoritos.js"></script> </body>
 </html>

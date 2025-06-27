@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      // Envia os dados para o  backend usando a API Fetch
+      // Envia os dados para o backend usando a API Fetch
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -26,20 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await response.json();
 
+      // Limpa classes anteriores e adiciona a base 'feedback-message'
+      feedbackMessage.className = 'feedback-message'; // LINHA ALTERADA/ADICIONADA
+      feedbackMessage.textContent = result.message; // Define o texto da mensagem
+
       if (response.ok) {
-        // Se o cadastro foi bem-sucedido
-        feedbackMessage.textContent = result.message;
-        feedbackMessage.style.color = 'green';
+        feedbackMessage.classList.add('success'); // LINHA ALTERADA/ADICIONADA
+        setTimeout(() => feedbackMessage.classList.add('show'), 10); // LINHA ADICIONADA (para animação)
         form.reset(); // Limpa o formulário
       } else {
-        // Se houve um erro no cadastro
-        feedbackMessage.textContent = 'Erro: ' + (result.message || 'Não foi possível cadastrar.');
-        feedbackMessage.style.color = 'red';
+        feedbackMessage.classList.add('error'); // LINHA ALTERADA/ADICIONADA
+        setTimeout(() => feedbackMessage.classList.add('show'), 10); // LINHA ADICIONADA (para animação)
       }
     } catch (error) {
       // Se houve um erro de rede ou de conexão
+      feedbackMessage.className = 'feedback-message error'; // LINHA ALTERADA/ADICIONADA
       feedbackMessage.textContent = 'Erro de conexão com o servidor.';
-      feedbackMessage.style.color = 'red';
+      setTimeout(() => feedbackMessage.classList.add('show'), 10); // LINHA ADICIONADA (para animação)
       console.error('Erro no fetch:', error);
     }
   });

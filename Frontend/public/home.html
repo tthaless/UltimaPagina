@@ -31,13 +31,53 @@
             </div>
             
             <div class="toolbar-right">
-                <a href="#"><i class="fa-regular fa-heart"></i> favoritos</a>
+                <a href="/anuncios/favoritos.html"><i class="fa-regular fa-heart"></i> favoritos</a>
                 <a href="/anuncios/meus-anuncios.html"><i class="fa-regular fa-file-lines"></i> meus anúncios</a>
             </div>
         </section>
         <main class="classifieds-list" id="lista-anuncios">
-            <p>Carregando anúncios...</p>
         </main>
+    </div>
+
+    <div id="feedback-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="feedback-modal-title"></h2>
+            <p id="feedback-modal-message"></p>
+            <div class="modal-actions">
+                <button id="feedback-modal-ok-btn" class="btn-ok">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="filter-modal" class="modal-overlay">
+        <div class="filter-modal-content">
+            <h2 class="filter-modal-header">FILTRAR</h2>
+            <div class="filter-options-grid">
+                <div class="filter-column">
+                    <h3 class="filter-column-title">Categorias</h3>
+                    <div class="filter-options-list" id="filter-categories-list">
+                        <label class="filter-option-item">
+                            <input type="radio" name="category-filter" value="">
+                            <span class="custom-radio"></span> Todas
+                        </label>
+                    </div>
+                </div>
+                <div class="filter-column">
+                    <h3 class="filter-column-title">Bairros</h3>
+                    <div class="filter-options-list" id="filter-bairros-list">
+                        <label class="filter-option-item">
+                            <input type="radio" name="bairro-filter" value="">
+                            <span class="custom-radio"></span> Todos
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-actions-bottom">
+                <button id="apply-filters-btn" class="btn-salvar">Aplicar Filtros</button>
+                <button id="clear-filters-btn" class="btn-cancelar">Limpar Filtros</button>
+            </div>
+            <button id="close-filter-modal" class="close-filter-modal-btn">&times;</button>
+        </div>
     </div>
     
     <script src="/nav.js"></script>
