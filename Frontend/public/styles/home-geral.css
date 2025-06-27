@@ -445,3 +445,75 @@ body {
     text-decoration: none;
 }
 
+/* ========================================================== */
+/* --- ESTILOS PARA O POP-UP DE CONFIRMAÇÃO (MODAL) --- */
+/* ========================================================== */
+
+/* A camada escura que cobre a tela inteira */
+.modal-overlay {
+    display: none; /* Começa escondido */
+    position: fixed; /* Fica fixo na tela, mesmo com scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto com 60% de opacidade */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fique na frente de tudo */
+}
+
+/* A classe que o JavaScript usará para mostrar o modal */
+.modal-overlay.show {
+    display: flex;
+}
+
+/* A caixa branca do pop-up */
+.modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 450px;
+}
+
+.modal-content h2 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+}
+
+/* Os botões de ação */
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.modal-actions button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 150px;
+}
+
+.modal-actions .btn-excluir {
+    background-color: #e0e0e0; /* Cinza claro */
+    color: var(--color-text);
+}
+
+.modal-actions .btn-cancelar {
+    background-color: var(--color-primary-black, #1a1a1a); /* Preto */
+    color: white;
+}

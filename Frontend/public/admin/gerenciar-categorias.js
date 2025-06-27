@@ -93,22 +93,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function excluirCategoria(id) {
-        if (!confirm(`Tem certeza que deseja excluir a categoria com ID ${id}?`)) {
+        const modal = document.getElementById('confirm-modal');
+        const confirmBtn = document.getElementById('modal-btn-confirm');
+        const cancelBtn = document.getElementById('modal-btn-cancel');
+
+        // Mostra o modal
+        modal.classList.add('show');
+
+        // Cria uma "promessa" que vai esperar a decisão do usuário
+        const userConfirmed = await new Promise(resolve => {
+            confirmBtn.onclick = () => {
+                modal.classList.remove('show');
+                resolve(true); // Usuário clicou em "Excluir"
+            };
+            cancelBtn.onclick = () => {
+                modal.classList.remove('show');
+                resolve(false); // Usuário clicou em "Cancelar"
+            };
+        });
+        
+        // Se o usuário não confirmou, a função para aqui
+        if (!userConfirmed) {
             return;
         }
+
+        // Se o usuário confirmou, prossegue com a exclusão
         const token = localStorage.getItem('authToken');
         try {
+            // Altere a URL conforme necessário (para categorias ou anúncios)
             const response = await fetch(`/api/admin/categorias/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
+
             const result = await response.json().catch(() => ({}));
             alert(result.message || 'Operação concluída.'); 
+
             if (response.ok) {
-                buscarCategorias();
+                buscarCategorias(); // Atualiza a lista na tela
             }
         } catch (error) {
-            alert('Erro de conexão ao tentar excluir.');
+                alert('Erro de conexão ao tentar excluir.');
         }
     }
 

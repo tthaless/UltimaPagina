@@ -80,21 +80,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function excluirAnuncio(id) {
-        if (!confirm(`Tem certeza que deseja excluir este anúncio? (ID: ${id})`)) {
+        const modal = document.getElementById('confirm-modal');
+        const confirmBtn = document.getElementById('modal-btn-confirm');
+        const cancelBtn = document.getElementById('modal-btn-cancel');
+
+        // Mostra o modal
+        modal.classList.add('show');
+
+        // Cria uma "promessa" que vai esperar a decisão do usuário
+        const userConfirmed = await new Promise(resolve => {
+            confirmBtn.onclick = () => {
+                modal.classList.remove('show');
+                resolve(true); // Usuário clicou em "Excluir"
+            };
+            cancelBtn.onclick = () => {
+                modal.classList.remove('show');
+                resolve(false); // Usuário clicou em "Cancelar"
+            };
+        });
+        
+        // Se o usuário não confirmou, a função para aqui
+        if (!userConfirmed) {
             return;
         }
+
+        // Se o usuário confirmou, prossegue com a exclusão
+        const token = localStorage.getItem('authToken');
         try {
             const response = await fetch(`/api/anuncios/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
+
             const result = await response.json().catch(() => ({}));
-            alert(result.message || 'Operação concluída.');
+            alert(result.message || 'Operação concluída.'); 
+
             if (response.ok) {
-                buscarMeusAnuncios();
+                buscarMeusAnuncios(); // Atualiza a lista na tela
             }
         } catch (error) {
-            alert('Erro de conexão ao tentar excluir.');
+                alert('Erro de conexão ao tentar excluir.');
         }
     }
 
