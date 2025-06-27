@@ -36,6 +36,26 @@
         <main class="classifieds-list" id="lista-anuncios">
             </main>
     </div>
+
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Você tem certeza que deseja excluir?</h2>
+            <p>Essa ação não poderá ser desfeita.</p>
+            <div class="modal-actions">
+                <button id="modal-btn-confirm" class="btn-excluir">Excluir</button>
+                <button id="modal-btn-cancel" class="btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedback-modal" class="modal-overlay">
+        <div class="modal-content">
+            <p id="feedback-modal-message"></p>
+            <div class="modal-actions">
+                <button id="feedback-modal-ok-btn" class="btn-ok">OK</button>
+            </div>
+        </div>
+    </div>
     
     <script src="/nav.js"></script>
     <script src="/home-admin.js"></script>

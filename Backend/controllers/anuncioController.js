@@ -48,10 +48,11 @@ const updateMeuAnuncio = async (req, res) => {
 
 const deleteMeuAnuncio = async (req, res) => {
   try {
-    await anuncioService.deleteMeuAnuncio(req.params.id, req.user.id);
+    await anuncioService.deleteMeuAnuncio(req.params.id, req.user); // Passa o objeto 'req.user' completo
     res.status(200).send({ message: 'Anúncio excluído com sucesso!' });
   } catch (error) {
-    res.status(error.message.includes('negado') || error.message.includes('encontrado') ? 403 : 400).send({ message: error.message });
+    // Mantém a lógica de erro. 'negado' será para usuários não-admin tentando excluir de outros.
+    res.status(error.message.includes('negado') || error.message.includes('encontrado') ? 403 : 404).send({ message: error.message });
   }
 };
 

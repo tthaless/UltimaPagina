@@ -90,15 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json();
-            feedbackAnuncio.textContent = result.message;
-            feedbackAnuncio.style.color = response.ok ? 'green' : 'red';
+            
+            // Limpa classes anteriores e adiciona a base 'feedback-message'
+            feedbackAnuncio.className = 'feedback-message'; 
+            feedbackAnuncio.textContent = result.message; // Define o texto da mensagem
 
             if(response.ok) {
+                feedbackAnuncio.classList.add('success'); // Adiciona a classe de sucesso
+                // Pequeno delay para garantir que a transição funcione
+                setTimeout(() => feedbackAnuncio.classList.add('show'), 10); 
                 // Volta para a lista após 2 segundos
                 setTimeout(() => { window.location.href = '/anuncios/meus-anuncios.html'; }, 2000);
+            } else {
+                feedbackAnuncio.classList.add('error'); // Adiciona a classe de erro
+                // Pequeno delay para garantir que a transição funcione
+                setTimeout(() => feedbackAnuncio.classList.add('show'), 10); 
             }
         } catch (error) {
+            feedbackAnuncio.className = 'feedback-message error'; // Adiciona classes de feedback e erro
             feedbackAnuncio.textContent = 'Erro de conexão ao salvar alterações.';
+            setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // Mostra com delay
         }
     });
 

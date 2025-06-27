@@ -144,13 +144,13 @@ body {
 }
 .ad-card {
     display: grid;
-    grid-template-columns: 140px 1fr 2fr 1.5fr 50px;
+    grid-template-columns: 140px 1fr 2fr 1.5fr auto;
     align-items: center;
     gap: 1.5rem;
     border: 1px solid var(--color-border);
     padding: 1.5rem;
     border-radius: 4px;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.2s ease;
 }
 .ad-card:hover {
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -178,7 +178,13 @@ body {
     font-size: 1rem; 
     color: var(--color-text);
     margin-left: 0rem;  
+    margin-right: 2rem;
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-left: 0rem;
     margin-right: 1rem;
+    word-wrap: break-word; /* Garante que palavras longas sejam quebradas */
+    word-break: break-all;
 }
 .ad-location { 
     font-size: 0.9rem; 
@@ -195,6 +201,8 @@ body {
     font-size: 1.2rem; 
     color: var(--color-text); 
     cursor: pointer; 
+    margin-left: -2.5rem;
+
 }
 .classifieds-list::-webkit-scrollbar { width: 8px; }
 .classifieds-list::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -292,7 +300,10 @@ body {
 
 /* Estilos para a área de ações no card (onde fica a lixeira) */
 .ad-card .ad-actions {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ALtere 'flex-start' para 'center' */
+    gap: 0.75rem;
 }
 
 /* Estilo para o botão de lixeira */
@@ -302,7 +313,7 @@ body {
     color: var(--color-text);
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 5px;
+    padding: 2px;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
@@ -416,7 +427,7 @@ body {
     display: flex; /* Para alinhar o ícone e o texto */
     align-items: center;
     transition: color 0.2s ease;
-    margin-left: -2.7rem;
+    margin-left: 0rem;
 }
 .ad-card .ad-actions button:hover {
     opacity: 0.6;
@@ -515,5 +526,66 @@ body {
 
 .modal-actions .btn-cancelar {
     background-color: var(--color-primary-black, #1a1a1a); /* Preto */
+    color: white;
+}
+
+/* ========================================================== */
+/* --- ESTILOS PARA O POP-UP DE FEEDBACK (VERSÃO SIMPLES) --- */
+/* ========================================================== */
+
+/* A camada escura que cobre a tela inteira (sem alteração) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-overlay.show {
+    display: flex;
+}
+
+/* A caixa branca do pop-up */
+.modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 450px;
+}
+
+/* MUDANÇA AQUI: Estilizando o <p> como o novo título */
+#feedback-modal-message {
+    font-family: var(--font-serif); /* Fonte elegante */
+    font-size: 2.2rem;             /* Tamanho grande de título */
+    line-height: 1.2;              /* Espaçamento entre linhas */
+    color: var(--color-text);      /* Cor do texto principal */
+    margin-bottom: 2rem;           /* Espaço antes do botão OK */
+}
+
+/* Botões de ação (sem alteração) */
+.modal-actions {
+    display: flex;
+    justify-content: center;
+}
+.modal-actions button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 150px;
+}
+.modal-actions .btn-ok {
+    background-color: var(--color-primary-black, #1a1a1a);
     color: white;
 }

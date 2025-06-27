@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json().catch(() => ({}));
-            alert(result.message || 'Operação concluída.'); 
+            showFeedbackModal(result.message || 'Operação concluída.'); 
 
             if (response.ok) {
                 buscarMeusAnuncios(); // Atualiza a lista na tela

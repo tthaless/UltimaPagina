@@ -234,3 +234,40 @@ body {
 .btn-cancelar:hover {
     background-color: #b3b3b3;
 }
+
+/* ========================================================== */
+/* --- ESTILOS PARA MENSAGENS DE FEEDBACK NO FORMULÁRIO --- */
+/* ========================================================== */
+
+/* Estilo para o div onde a mensagem de feedback é exibida */
+#feedbackAnuncio {
+    /* Pode ajustar a margem superior para espaçamento dos botões */
+    margin-top: 1.5rem; 
+}
+
+/* Estilo base para a caixa da mensagem */
+.feedback-message {
+    text-transform: uppercase;
+    padding-top: 0.8rem;
+    font-size: 1.3rem; /* Tamanho da fonte maior */
+    font-weight: bold;
+    text-align: center;
+    opacity: 0; /* Começa invisível para a animação */
+    transform: translateY(20px); /* Começa um pouco abaixo para a animação */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+}
+
+/* Estado visível da mensagem */
+.feedback-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Cores específicas para sucesso e erro */
+.feedback-message.success {
+    color: #30861f; /* Verde para sucesso */
+}
+
+.feedback-message.error {
+    color: #7a2626; /* Vermelho para erro */
+}

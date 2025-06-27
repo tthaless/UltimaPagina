@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         } catch (error) {
+            // Aplica classes de erro para o feedback de carregamento de dados
+            feedbackAnuncio.className = 'feedback-message error'; // LINHA ALTERADA/ADICIONADA
             feedbackAnuncio.textContent = 'Erro ao carregar dados para o formulário.';
+            setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
         }
     }
 
@@ -51,9 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
             bairro_id: document.getElementById('bairro').value // Pega o valor do select simples
         };
 
+        // VALIDAÇÃO INICIAL: Aplica as classes CSS
         if (!dadosAnuncio.titulo || !dadosAnuncio.categoria_id || !dadosAnuncio.bairro_id) {
             feedbackAnuncio.textContent = 'Título, Categoria e Bairro são obrigatórios.';
-            feedbackAnuncio.style.color = 'red';
+            feedbackAnuncio.className = 'feedback-message error show'; // LINHA ALTERADA
             return;
         }
 
@@ -64,15 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(dadosAnuncio)
             });
             const result = await response.json();
-            feedbackAnuncio.textContent = result.message;
-            feedbackAnuncio.style.color = response.ok ? 'green' : 'red';
+            
+            // Limpa classes anteriores e adiciona a base 'feedback-message'
+            feedbackAnuncio.className = 'feedback-message'; // LINHA ALTERADA/ADICIONADA
+            feedbackAnuncio.textContent = result.message; // Define o texto da mensagem
+
             if (response.ok) {
+                feedbackAnuncio.classList.add('success'); // LINHA ALTERADA/ADICIONADA
+                setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
                 setTimeout(() => {
                     window.location.href = '/anuncios/meus-anuncios.html';
                 }, 2000);
+            } else {
+                feedbackAnuncio.classList.add('error'); // LINHA ADICIONADA
+                setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
             }
         } catch (error) {
+            // ERRO DE CONEXÃO: Aplica as classes CSS
+            feedbackAnuncio.className = 'feedback-message error'; // LINHA ALTERADA/ADICIONADA
             feedbackAnuncio.textContent = 'Erro de conexão ao criar anúncio.';
+            setTimeout(() => feedbackAnuncio.classList.add('show'), 10); // LINHA ADICIONADA
         }
     });
 
@@ -102,5 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializa a página
     popularDropdowns();
+    // Esta linha não foi modificada, pois o elemento 'current-date' não existe neste HTML
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
 });

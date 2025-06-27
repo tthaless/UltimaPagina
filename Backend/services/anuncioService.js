@@ -39,7 +39,18 @@ exports.updateMeuAnuncio = async (idAnuncio, userId, dadosAnuncio) => {
   return anuncioPersistence.update(idAnuncio, titulo, descricao, categoria_id, bairro_id);
 };
 
-exports.deleteMeuAnuncio = async (idAnuncio, userId) => {
-  const anuncio = await exports.getAnuncioById(idAnuncio, userId); // Reutiliza a função que já tem a checagem de propriedade
+exports.deleteMeuAnuncio = async (idAnuncio, user) => { // Agora recebe 'user' em vez de 'userId'
+  // Se o usuário for um administrador, ele pode excluir qualquer anúncio
+  if (user.tipo_usuario === 'admin') {
+    const [result] = await anuncioPersistence.remove(idAnuncio);
+    if (result.affectedRows === 0) {
+      throw new Error('Anúncio não encontrado.'); // Mesmo para admin, o anúncio precisa existir
+    }
+    return { message: 'Anúncio excluído com sucesso!' }; // Retorna mensagem de sucesso para o admin
+  }
+
+  // Se não for um administrador, mantenha a checagem de propriedade
+  // A função getAnuncioById já verifica se o anúncio pertence ao userId
+  const anuncio = await exports.getAnuncioById(idAnuncio, user.id); 
   return anuncioPersistence.remove(idAnuncio);
 };
