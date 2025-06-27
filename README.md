@@ -5,21 +5,20 @@
 
 ## 📌 Descrição
 
-O sistema **Última Página** é uma aplicação web que resgata o estilo das últimas páginas de jornais, servindo como uma plataforma de classificados de serviços para a comunidade de Caldeiras. O objetivo é resolver a falta de um canal centralizado onde os moradores possam tanto divulgar seus serviços quanto encontrar facilmente os profissionais que precisam, tudo em um ambiente digital, moderno e acessível.
+O sistema **Última Página** é uma aplicação web que resgata o estilo e a nostalgia das páginas de classificados de jornais antigos. O projeto serve como uma plataforma de anúncios de serviços para a comunidade, com o objetivo de criar um canal centralizado onde os moradores possam tanto divulgar seus serviços quanto encontrar facilmente os profissionais que precisam, tudo em um ambiente digital, moderno e acessível.
 
 
 ## 🛠️ Funcionalidades
 
 ### Para Clientes (Usuários da Plataforma)
-- **Cadastro e Autenticação:** Sistema de login e cadastro com perfil único.
+- **Cadastro e Autenticação:** Sistema de cadastro e login de usuários com senhas criptografadas.
 - **Gerenciamento de Anúncios (CRUD):** Funcionalidade completa para criar, visualizar, editar e excluir seus próprios anúncios.
 - **Filtragem:** Ferramenta para filtrar anúncios por categorias e bairros.
-- **Visualização de Detalhes:** Acesso à página de detalhes completa dos anúncios.
-- **Funcionalidades Desejáveis:** Sistema de favoritos para salvar anúncios e botão para limpar filtros.
+- **Visualização e Filtragem:** Ferramenta para visualizar todos os anúncios da plataforma e filtrar por categoria e bairro.
 
 ### Para Administradores
-- **Gerenciamento de Categorias:** CRUD para as categorias disponíveis no sistema.
-- **Moderação de Conteúdo:** Capacidade de visualizar e excluir qualquer anúncio da plataforma.
+- **Gerenciamento de Categorias:** Funcionalidade completa para criar, editar e excluir as categorias de serviços disponíveis no sistema.
+- **Moderação de Conteúdo:** Capacidade de visualizar e excluir qualquer anúncio da plataforma para manter a qualidade do conteúdo.
 
 ## 📖 Regras de Commit
 
@@ -48,21 +47,23 @@ O projeto está organizado da seguinte forma:
 
 ```
 /
-├── 📂 Backend
-├── 📂 Documentação/       # Artefatos de análise e design do sistema.
-|  ├── 📂 Diagrama de Classes
-|  ├── 📂 Diagrama de Implantação
-|  ├── 📂 Diagrama de Pacotes
-|  ├── 📂 Diagrama de Sequência
-|  └── 📂 Padrões Adotados/       # Regras e padrões de qualidade seguidos no projeto.
-|  |  ├── Documento de Requisitos - Ultima Pagina.doc
-|  |  ├── Guia de Boas Práticas de Codificação.docx
-|  |  └── Regras de Verificação e Análise de Requisitos.docx
-|  └── Documento de Requisitos - Ultima Pagina.doc
-├── 📄 .gitattributes 
-├── 📄 .gitignore
-├── 📄 LICENSE
-└── 📄 README.md          
+├── 📂 Backend/
+│   ├── controllers/      # Controla a lógica das requisições da API.
+│   ├── middlewares/      # Funções de segurança (autenticação, permissões).
+│   ├── persistence/      # Camada de acesso direto ao banco de dados.
+│   ├── routes/           # Define os endpoints da API.
+│   ├── services/         # Contém as regras de negócio do sistema.
+│   ├── dataBase.js       # Configuração da conexão com o MySQL.
+│   └── index.js          # Ponto de entrada do servidor Express.
+│
+├── 📂 Frontend/
+│   └── public/           # Contém todos os arquivos estáticos (HTML, CSS, JS do cliente).
+│       ├── admin/
+│       ├── anuncios/
+│       ├── auth/
+│       └── styles/
+│
+└── 📄 README.md         
 ```
 
 
@@ -71,10 +72,56 @@ O projeto está organizado da seguinte forma:
 ### Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina:
 - [Node.js](https://nodejs.org/)
-- [XAMPP](https://www.apachefriends.org/index.html)
-- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
-- [Git](https://git-scm.com/)
+- Um servidor de banco de dados MySQL (ex: [XAMPP](https://www.apachefriends.org/pt_br/index.html) ou Docker)
 
+### Passos
+1. Clone o repositório
+```
+git clone https://github.com/tthaless/UltimaPagina.git
+cd UltimaPagina/Backend
+```
+
+2. Instale as dependências do Backend
+```
+npm install
+```
+
+3. Configure o Banco de Dados
+- Certifique-se de que seu servidor MySQL esteja rodando.
+- Crie um banco de dados.
+- Crie um script SQL para criar as tabelas.
+- Verifique se as credenciais no arquivo ```Backend/dataBase.js``` correspondem às do seu ambiente local.
+
+4. Inicie o Servidor Backend
+
+5. Acesse a Aplicação
+- Abra seu navegador e acesse ```http://localhost:3000/auth/login.html``` para começar.
+
+## 🔀 Endpoints da API
+
+Abaixo estão as principais rotas da API desenvolvidas:
+
+- Autenticação
+    - ```POST /api/register```: Registra um novo usuário.
+    - ```POST /api/login```: Autentica um usuário e retorna um token JWT.
+
+- Anúncios
+    - ```GET /api/anuncios```: Retorna todos os anúncios.
+    - ```GET /api/anuncios/meus```: Retorna os anúncios do usuário logado.
+    - ```POST /api/anuncios```: Cria um novo anúncio.
+    - ```PUT /api/anuncios/:id```: Atualiza um anúncio do próprio usuário.
+    - ```DELETE /api/anuncios/:id```: Deleta um anúncio do próprio usuário.
+    - ```DELETE /api/anuncios/admin/:id```: (Admin) Deleta qualquer anúncio.
+
+- Categorias
+    - ```GET /api/admin/categorias```: (Admin) Retorna todas as categorias para gerenciamento.
+    - ```GET /api/admin/categorias/public```: Retorna todas as categorias para uso público (ex: em formulários).
+    - ```POST /api/admin/categorias```: (Admin) Cria uma nova categoria.
+    - ```PUT /api/admin/categorias/:id```: (Admin) Atualiza uma categoria.
+    - ```DELETE /api/admin/categorias/:id```: (Admin) Deleta uma categoria.
+
+- Bairros
+    - ```GET /api/bairros```: Retorna todos os bairros.
 
 ## 👥 Contribuidores
 
